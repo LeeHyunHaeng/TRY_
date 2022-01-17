@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
-import com.yjk.common.util.TImageUtil
 
 /**
  * Camera & Gallery 로부터 이미지를 가져오는 유틸

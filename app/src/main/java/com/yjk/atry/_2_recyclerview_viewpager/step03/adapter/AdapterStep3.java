@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.yjk.atry.R;
 import com.yjk.atry._2_recyclerview_viewpager.step03.datamodel.PictureDataModel;
 import com.yjk.atry._2_recyclerview_viewpager.step03.fragment.FragmentPicture;
-import com.yjk.common.callback.SingleCallback;
 import com.yjk.common.callback.SingleClickListener;
 import com.yjk.common.util.TLog;
 

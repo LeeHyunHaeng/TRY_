@@ -1,4 +1,4 @@
-package com.yjk.sample._0_root.lhh.adapter;
+package com.yjk.sample._0_root.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.yjk.sample.R;
-import com.yjk.sample._0_root.lhh.datamodel.DataActivity;
+import com.yjk.sample._0_root.datamodel.DataActivity;
 
 import java.util.ArrayList;
 

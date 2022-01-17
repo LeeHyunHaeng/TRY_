@@ -1,6 +1,5 @@
 package com.yjk.common.view.dialog;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;

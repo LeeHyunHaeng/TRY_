@@ -1,7 +1,6 @@
 package com.yjk.atry._2_recyclerview_viewpager.step03.datamodel;
 
 import android.graphics.Bitmap;
-import android.net.Uri;
 
 import java.util.Objects;
 

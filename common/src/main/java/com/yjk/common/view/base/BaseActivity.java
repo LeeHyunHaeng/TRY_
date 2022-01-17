@@ -1,17 +1,12 @@
 package com.yjk.common.view.base;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowInsetsController;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
-import androidx.viewpager.widget.ViewPager;
 
 import com.yjk.common.util.TLog;
 

@@ -1,4 +1,4 @@
-package com.yjk.sample._0_root.lhh.CustomDialog;
+package com.yjk.sample._0_root.CustomDialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -8,7 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.yjk.atry.R;
+import com.yjk.sample.R;
+
 
 public class CustomDialog extends Dialog implements View.OnClickListener {
 

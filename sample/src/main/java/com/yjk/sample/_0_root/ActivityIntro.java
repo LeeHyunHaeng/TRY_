@@ -1,4 +1,4 @@
-package com.yjk.sample._0_root.lhh;
+package com.yjk.sample._0_root;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,9 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.yjk.common.view.base.BaseActivity;
 import com.yjk.sample.R;
-import com.yjk.sample._0_root.lhh.CustomDialog.CustomDialog;
-import com.yjk.sample._0_root.lhh.adapter.AdapterActivity;
-import com.yjk.sample._0_root.lhh.datamodel.DataActivity;
+import com.yjk.sample._0_root.CustomDialog.CustomDialog;
+import com.yjk.sample._0_root.adapter.AdapterActivity;
+import com.yjk.sample._0_root.datamodel.DataActivity;
 
 import java.util.ArrayList;
 

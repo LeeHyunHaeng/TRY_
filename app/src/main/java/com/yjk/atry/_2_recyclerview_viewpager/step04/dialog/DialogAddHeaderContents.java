@@ -20,7 +20,6 @@ import com.yjk.common.util.TDateUtil;
 import com.yjk.common.util.TTextUtil;
 import com.yjk.common.view.dialog.DialogCommon;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class DialogAddHeaderContents extends DialogCommon {

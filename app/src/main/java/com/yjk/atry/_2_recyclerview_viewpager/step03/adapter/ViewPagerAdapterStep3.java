@@ -7,7 +7,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.yjk.atry._2_recyclerview_viewpager.step03.datamodel.PictureDataModel;
 import com.yjk.atry._2_recyclerview_viewpager.step03.fragment.FragmentPicture;
-import com.yjk.common.callback.SingleCallback;
 
 import java.util.ArrayList;
 

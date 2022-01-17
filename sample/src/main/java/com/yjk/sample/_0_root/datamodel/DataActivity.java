@@ -1,4 +1,4 @@
-package com.yjk.sample._0_root.lhh.datamodel;
+package com.yjk.sample._0_root.datamodel;
 
 public class DataActivity {
 

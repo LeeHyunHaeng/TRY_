@@ -8,7 +8,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.yjk.atry.R;
@@ -21,7 +20,6 @@ import com.yjk.common.view.base.recyclerview.BaseRecyclerViewAdapter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 
 public class AdapterHeader extends BaseRecyclerViewAdapter<HeaderDataModel, AdapterHeader.HeaderContentsViewHolder> {
 

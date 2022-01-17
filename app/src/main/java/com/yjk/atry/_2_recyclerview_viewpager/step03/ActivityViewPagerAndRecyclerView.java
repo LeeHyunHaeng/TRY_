@@ -1,7 +1,6 @@
 package com.yjk.atry._2_recyclerview_viewpager.step03;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,7 +25,6 @@ import com.yjk.common.view.base.BaseActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * 도전과제 3

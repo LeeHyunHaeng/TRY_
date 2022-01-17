@@ -5,10 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.yjk.atry._101_room.dao.UserDao
-import com.yjk.atry._101_room.datamodel.ADataModel
 import com.yjk.atry._101_room.datamodel.UserDataModel
 import com.yjk.atry.db.dao.TestDao
-import com.yjk.atry.db.datamodel.TestDataModel
 
 /**
  * Room Database

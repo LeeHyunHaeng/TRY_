@@ -6,7 +6,6 @@ import com.yjk.atry._101_room.datamodel.UserDataModel
 import com.yjk.atry._101_room.repository.UserRepository
 import com.yjk.atry._2_recyclerview_viewpager.step01.adapter.AdapterSimpleContents
 import com.yjk.atry._2_recyclerview_viewpager.step01.datamodel.SimpleContentsDataModel
-import com.yjk.atry.databinding.ActivityStage101MainBinding
 import com.yjk.atry.databinding.ActivityStage101MainV2Binding
 import com.yjk.common.view.base.BaseActivity
 import kotlinx.coroutines.CoroutineScope

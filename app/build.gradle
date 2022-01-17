@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply from: '../version.gradle'
@@ -8,7 +8,7 @@ android {
     buildToolsVersion deps.versions.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.yjk.atry"
+//        applicationId "com.yjk.atry"
         minSdkVersion deps.versions.minSdkVersion
         targetSdkVersion deps.versions.compileSdkVersion
         versionCode deps.versions.versionCode

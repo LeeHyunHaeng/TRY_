@@ -1,6 +1,5 @@
 package com.yjk.atry._101_room
 
-import android.content.Context
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yjk.atry._101_room.datamodel.UserDataModel

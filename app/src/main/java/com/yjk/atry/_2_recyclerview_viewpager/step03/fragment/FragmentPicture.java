@@ -15,10 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.yjk.atry.R;
 import com.yjk.atry._2_recyclerview_viewpager.step03.adapter.AdapterStep3;
 import com.yjk.atry._2_recyclerview_viewpager.step03.datamodel.PictureDataModel;
-import com.yjk.common.callback.SingleCallback;
-import com.yjk.common.util.TLog;
-
-import java.util.ArrayList;
 
 public class FragmentPicture extends Fragment {
     public static final int VIEW_TYPE_DETAIL = 0;
