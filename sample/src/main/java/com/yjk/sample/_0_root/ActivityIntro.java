@@ -31,7 +31,7 @@ public class ActivityIntro extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recycerview);
+        setContentView(R.layout._0_recycerview);
 
         initView();
         setEvent();

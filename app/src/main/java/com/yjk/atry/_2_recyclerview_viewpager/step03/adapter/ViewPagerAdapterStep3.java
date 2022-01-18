@@ -19,7 +19,7 @@ public class ViewPagerAdapterStep3 extends FragmentStateAdapter {
 
         mList = new ArrayList<>();
 
-        AdapterStep3.IPictureItemCallback callback = new AdapterStep3.IPictureItemCallback() {
+    AdapterStep3.IPictureItemCallback callback = new AdapterStep3.IPictureItemCallback() {
             @Override
             public void onLike(PictureDataModel data) {
                 mList.get(1).addItem(data);
