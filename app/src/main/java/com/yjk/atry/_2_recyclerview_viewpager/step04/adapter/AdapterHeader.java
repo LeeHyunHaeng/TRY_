@@ -51,6 +51,7 @@ public class AdapterHeader extends BaseRecyclerViewAdapter<HeaderDataModel, Adap
             boolean isTop; // header가 나오는지 여부
             if (position != 0) {
                 String beforeDate = TDateUtil.parseDate(mList.get(position - 1).getDate(), TDateUtil.dateFormatDot, TDateUtil.dateFormatYearMonthWithDot);
+
                 isTop = !date.equals(beforeDate);
             } else {
                 isTop = true;

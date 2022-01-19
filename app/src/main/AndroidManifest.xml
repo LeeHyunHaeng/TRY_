@@ -16,10 +16,6 @@
         <activity android:name="com.yjk.atry._0_root.ActivityIntro"
             android:screenOrientation="fullSensor"
             android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <!-- 기초편 -->
@@ -36,7 +32,14 @@
         <activity android:name="com.yjk.atry._2_recyclerview_viewpager.step03.ActivityViewPagerAndRecyclerView"
             android:screenOrientation="portrait"/>
         <activity android:name="com.yjk.atry._2_recyclerview_viewpager.step04.ActivityHeaderRecyclerView"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <!-- room -->
         <activity android:name="com.yjk.atry._101_room.ActivityRoom"
