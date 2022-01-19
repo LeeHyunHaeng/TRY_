@@ -1,16 +1,16 @@
 package com.yjk.sample._2_header.datamodule;
 
-public class Header_Data {
-    private String day;
+public class Header_Data implements Comparable<Header_Data>{
+    private String date;
     private String contents;
 
-    public Header_Data(String str, String text){
-        this.day = str;
+    public Header_Data(String str,String text){
+        this.date = str;
         this.contents = text;
     }
 
     public String getDate() {
-        return day;
+        return date;
     }
     public void setDate(String str) {
         this.contents = str;
@@ -23,4 +23,8 @@ public class Header_Data {
         this.contents = text;
     }
 
+    @Override
+    public int compareTo(Header_Data header_data) {
+        return this.date.compareTo(header_data.date);
+    }
 }

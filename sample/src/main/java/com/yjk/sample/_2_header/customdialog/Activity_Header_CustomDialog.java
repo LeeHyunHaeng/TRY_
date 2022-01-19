@@ -94,7 +94,7 @@ public class Activity_Header_CustomDialog {
     }
 
     public interface dateCallback{
-        void getDate(String date,String context);
+        void getDate(String year,String context);
     }
 
     public void setCallbackListener(dateCallback callback){

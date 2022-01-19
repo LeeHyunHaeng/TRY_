@@ -43,8 +43,7 @@ public class Activity_Header_Main extends BaseActivity {
 
         recyclerView = findViewById(R.id.recyclerview_calender);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        adapter = new Header_Adapter(mContext,mList);
-        recyclerView.setAdapter(adapter);
+
     }
 
     @Override
@@ -56,15 +55,17 @@ public class Activity_Header_Main extends BaseActivity {
                 dialog.showDialog();
                 dialog.setCallbackListener(new Activity_Header_CustomDialog.dateCallback() {
                     @Override
-                    public void getDate(String date, String context) {
-                        Header_Data data = new Header_Data(date,context);
+                    public void getDate(String year,String context) {
+                        Header_Data data = new Header_Data(year,context);
                         if (data != null){
-                            Log.d(TAG, "getDate: data : " + data);
                             mList.add(data);
+                            Log.d(TAG, "getDate: mList : " + mList);
                         }
                     }
                 });
 
+                adapter = new Header_Adapter(mContext,mList);
+                recyclerView.setAdapter(adapter);
 
 
             }

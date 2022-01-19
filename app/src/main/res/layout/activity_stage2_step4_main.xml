@@ -52,6 +52,6 @@
         android:id="@+id/recyclerViewContentsList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:itemCount="6"
+        tools:itemCount="7"
         tools:listitem="@layout/adapter_stage2_step1_item"/>
 </LinearLayout>
