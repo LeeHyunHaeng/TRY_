@@ -14,6 +14,13 @@
             android:screenOrientation="portrait"
             android:exported="true">
 
+
+        </activity>
+
+        <activity android:name="._1_Test.ActivityMain"
+            android:screenOrientation="portrait"
+            android:exported="true">
+
             <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
