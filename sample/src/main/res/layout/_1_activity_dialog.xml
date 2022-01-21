@@ -10,7 +10,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/et_title"
+            android:id="@+id/et_title_kt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="title"
@@ -18,7 +18,7 @@
             android:gravity="start"/>
 
         <EditText
-            android:id="@+id/et_contents"
+            android:id="@+id/et_contents_kt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="contents"
