@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply from: '../version.gradle'
 
 android {
@@ -7,6 +8,7 @@ android {
     buildToolsVersion deps.versions.buildToolsVersion
 
     defaultConfig {
+        applicationId "com.yjk.sample"
         minSdkVersion deps.versions.minSdkVersion
         targetSdkVersion deps.versions.compileSdkVersion
         versionCode deps.versions.versionCode
@@ -15,7 +17,7 @@ android {
         multiDexEnabled true
     }
 
-    buildTypes {
+        buildTypes {
         debug {
             ext.enableCrashlytics = false // 디버그일 경우 충돌보고서 사용 x
             ext.alwaysUpdateBuildId = false // 빌드 시 고유 빌드 ID 업데이트 방지
@@ -34,8 +36,8 @@ android {
         }
     }
 
-    buildFeature {
-        viewBinding = true
+    viewBinding{
+        enabled true
     }
 
 

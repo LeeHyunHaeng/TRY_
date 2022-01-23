@@ -49,8 +49,8 @@ public class ActivityIntro extends BaseActivity {
 
         dList = new ArrayList<>();
         adapter = new AdapterActivity(mContext,dList);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        binding.recyclerview.setAdapter(adapter);
+        binding.recyclerview.setLayoutManager(new LinearLayoutManager(mContext));
     }
 
     @Override
