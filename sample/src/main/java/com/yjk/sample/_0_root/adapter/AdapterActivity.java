@@ -11,37 +11,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.yjk.sample.R;
 import com.yjk.sample._0_root.datamodel.DataActivity;
+import com.yjk.sample.databinding.RecycelerviewItemsBinding;
 
 import java.util.ArrayList;
 
 public class AdapterActivity extends RecyclerView.Adapter<AdapterActivity.ViewHolder> {
     private ArrayList<DataActivity> mList;
     private Context mContext;
+    private OnItemDeleteListener deleteListener;
 
-
-    public interface OnItemDeleteListener {
-        void onItemDelete(View view, int position);
-    }
-    private OnItemDeleteListener deleteListener = null;
-
-    public void setOnItemDeleteListener(OnItemDeleteListener listener){
-        this.deleteListener = listener;
-    }
 
     public AdapterActivity(Context context, ArrayList<DataActivity> list) {
         this.mContext = context;
         this.mList = list;
-
-
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.recycelerview_items, parent, false);
-
+//        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        View view = LayoutInflater.from(mContext).inflate(R.layout.recycelerview_items, parent, false);
 
         return new ViewHolder(view);
     }
@@ -52,13 +42,12 @@ public class AdapterActivity extends RecyclerView.Adapter<AdapterActivity.ViewHo
         DataActivity data = mList.get(position);
 
         try {
-            holder.tv_title.setText(data.getTitle());
-            holder.tv_contents.setText(data.getContents());
+            holder.binding.tvTitle.setText(data.getTitle());
+            holder.binding.tvContents.setText(data.getContents());
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -68,14 +57,17 @@ public class AdapterActivity extends RecyclerView.Adapter<AdapterActivity.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tv_title, tv_contents;
+//        private TextView tv_title, tv_contents;
+        private RecycelerviewItemsBinding binding;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+//            this.tv_title = itemView.findViewById(R.id.tv_title);
+//            this.tv_contents = itemView.findViewById(R.id.tv_contents);
 
-            this.tv_title = itemView.findViewById(R.id.tv_title);
-            this.tv_contents = itemView.findViewById(R.id.tv_contents);
-
+            //여기서 bind 함수는 내부적으로 findViewById 를 수행한다.
+            binding = RecycelerviewItemsBinding.bind(itemView);
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
@@ -85,17 +77,19 @@ public class AdapterActivity extends RecyclerView.Adapter<AdapterActivity.ViewHo
                         if(deleteListener !=null){
                             deleteListener.onItemDelete(view,position);
                         }
-
                     }
                     return false;
                 }
             });
-
         }
     }
 
-    interface OnItemDelete {
-        void onDeleteClick(View view, int position);
+    public interface OnItemDeleteListener {
+        void onItemDelete(View view, int position);
+    }
+
+    public void setOnItemDeleteListener(OnItemDeleteListener listener){
+        this.deleteListener = listener;
     }
 }
 
