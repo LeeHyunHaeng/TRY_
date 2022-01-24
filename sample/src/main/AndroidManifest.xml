@@ -19,7 +19,7 @@
 
         </activity>
 
-        <activity android:name=".bind.ActivityStart"
+        <activity android:name=".bind_java.ActivityStart"
             android:screenOrientation="portrait"
             android:exported="true">
 

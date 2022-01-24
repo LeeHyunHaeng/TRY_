@@ -1,4 +1,4 @@
-package com.yjk.sample.bind;
+package com.yjk.sample.bind_java;
 
 import android.os.Bundle;
 

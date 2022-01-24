@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.yjk.sample.bind.DataStart"/>
+        <import type="com.yjk.sample.bind_java.DataStart"/>
 
         <variable
             name="dataStart"
-            type="com.yjk.sample.bind.DataStart" />
+            type="com.yjk.sample.bind_java.DataStart" />
 
     </data>
 
