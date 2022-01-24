@@ -66,7 +66,7 @@ public class AdapterActivity extends RecyclerView.Adapter<AdapterActivity.ViewHo
 //            this.tv_title = itemView.findViewById(R.id.tv_title);
 //            this.tv_contents = itemView.findViewById(R.id.tv_contents);
 
-            //여기서 bind 함수는 내부적으로 findViewById 를 수행한다.
+            //여기서 com.yjk.sample.bind 함수는 내부적으로 findViewById 를 수행한다.
             binding = RecycelerviewItemsBinding.bind(itemView);
 
             itemView.setOnLongClickListener(new View.OnLongClickListener() {

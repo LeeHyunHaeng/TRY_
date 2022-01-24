@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.yjk.sample.bind.DataStart"/>
+
+        <variable
+            name="dataStart"
+            type="com.yjk.sample.bind.DataStart" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="name"
+            android:textSize="24dp"
+            android:text="@{dataStart.name}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="age"
+            android:textSize="24dp"
+            android:text="@{dataStart.age}"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="sex"
+            android:textSize="24dp"
+            android:text="@{(dataStart.gender == DataStart.GENDER_MALE) ? &quot;male&quot; : &quot;female&quot;}"/>
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            imageUrl="@{dataStart.imageUrl}"/>
+
+    </LinearLayout>
+
+</layout>
+
+
+
+
