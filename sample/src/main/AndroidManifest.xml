@@ -2,24 +2,28 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yjk.sample">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_baseline_air_24"
+        android:icon="@drawable/youtube"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_baseline_air_24"
+        android:roundIcon="@drawable/youtube"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
 
-        <activity android:name="._0_root.ActivityIntro"
+
+        <activity android:name="._1_finalmission.ActivityYouTubeMain"
             android:screenOrientation="portrait"
             android:exported="true">
 
-            <intent-filter>
+        <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </intent-filter>
 
         </activity>
+
 
 
 

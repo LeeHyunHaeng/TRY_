@@ -7,6 +7,7 @@ android {
     buildToolsVersion deps.versions.buildToolsVersion
 
     defaultConfig {
+        applicationId "com.yjk.sample"
         minSdkVersion deps.versions.minSdkVersion
         targetSdkVersion deps.versions.compileSdkVersion
         versionCode deps.versions.versionCode
@@ -38,10 +39,17 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    viewBinding {
+        enabled true
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(':common')
 
@@ -51,5 +59,17 @@ dependencies {
 
     implementation deps.glide
     implementation 'androidx.recyclerview:recyclerview:1.3.0-alpha01'
+
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.0.1'
+
+    implementation 'com.google.apis:google-api-services-youtube:v3-rev183-1.22.0'
+    implementation 'com.google.http-client:google-http-client-android:+'
+    implementation 'com.google.api-client:google-api-client-android:+'
+    implementation 'com.google.api-client:google-api-client-gson:+'
+
+
+
+
+
 
 }

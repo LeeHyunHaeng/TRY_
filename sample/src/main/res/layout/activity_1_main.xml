@@ -12,7 +12,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_margin="10dp"
-            android:src="@drawable/youtube" />
+            android:src="@drawable/youtube"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -45,8 +45,11 @@
                 <ImageView
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:src="@drawable/search"
-                    android:layout_margin="10dp"/>
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/search" />
 
             </RelativeLayout>
         </LinearLayout>
