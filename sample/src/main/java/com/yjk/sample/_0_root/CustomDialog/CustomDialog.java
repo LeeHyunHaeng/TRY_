@@ -38,7 +38,7 @@ public class CustomDialog extends Dialog implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog);
+        setContentView(R.layout._0_activity_main_dialog);
 
         bt_positive = findViewById(R.id.bt_positive);
         bt_negative = findViewById(R.id.bt_negative);

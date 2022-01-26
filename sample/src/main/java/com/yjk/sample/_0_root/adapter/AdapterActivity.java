@@ -40,7 +40,7 @@ public class AdapterActivity extends RecyclerView.Adapter<AdapterActivity.ViewHo
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.recycelerview_items, parent, false);
+        View view = inflater.inflate(R.layout._0_activity_recycelerview_items, parent, false);
 
 
         return new ViewHolder(view);
