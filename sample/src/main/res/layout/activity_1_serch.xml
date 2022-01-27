@@ -12,7 +12,8 @@
         <RelativeLayout
             android:id="@+id/backButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:onClick="backActivity">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -30,9 +31,12 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:id="@+id/search"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            </EditText>
+                android:layout_height="wrap_content"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:maxLines="1" />
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -42,16 +46,17 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_marginStart="5dp"
                     android:src="@drawable/ic_baseline_cancel_24" />
             </RelativeLayout>
         </RelativeLayout>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_search"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

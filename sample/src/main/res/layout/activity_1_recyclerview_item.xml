@@ -6,6 +6,7 @@
     android:layout_margin="5dp">
 
     <ImageView
+        android:id="@+id/titleImage"
         android:layout_width="match_parent"
         android:layout_height="200dp"/>
 
@@ -19,10 +20,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="title"
-            android:textSize="20dp"
             android:paddingStart="5dp"
+            android:paddingTop="3dp"
             android:paddingBottom="5dp"
-            android:paddingTop="3dp"/>
+            android:textSize="20dp" />
 
         <TextView
             android:id="@+id/channel"

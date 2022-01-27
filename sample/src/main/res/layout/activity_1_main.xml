@@ -40,7 +40,8 @@
             <RelativeLayout
                 android:id="@+id/re_search"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:onClick="videoSearch">
 
                 <ImageView
                     android:layout_width="40dp"
