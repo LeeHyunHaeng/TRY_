@@ -35,14 +35,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.mViewHolde
     @NonNull
     @Override
     public mViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        //item_utube xml파일을 객체화 시킨다.
-        LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.activity_1_recyclerview_item, parent, false);
-        return new mViewHolder(view);
+
+        binding = Activity1RecyclerviewItemBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false);
+        return new mViewHolder(binding);
     }
-//    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_1_recyclerview_item, parent, false);
-//    mViewHolder holder = new SearchAdapter.mViewHolder(view);
-//        return MainAdapter.MyViewHolder(holder);
+        //item_utube xml파일을 객체화 시킨다.
+//        LayoutInflater inflater = (LayoutInflater) parent.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        View view = inflater.inflate(R.layout.activity_1_recyclerview_item, parent, false);
+//        return new mViewHolder(view);
+//    }
 
     @Override
     public void onBindViewHolder(@NonNull mViewHolder holder, int position) {
