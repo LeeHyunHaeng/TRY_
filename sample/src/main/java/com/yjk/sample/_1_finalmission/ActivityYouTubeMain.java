@@ -47,6 +47,7 @@ public class ActivityYouTubeMain extends BaseActivity {
     public void videoSearch(View view) {
         Intent intent = new Intent(this,ActivitySearch.class);
         startActivity(intent);
+        finish();
     }
 }
 

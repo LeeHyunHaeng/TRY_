@@ -6,15 +6,13 @@ public class SearchData {
     String videoId;
     String title;
     String ImageUrl;
-//    String ViewCount;
-//    String ChannelId;
+    String ChannelId;
 
-    public SearchData(String videoId, String title, String ImageUrl) {
+    public SearchData(String videoId, String title, String ImageUrl,String ChannelId) {
         this.videoId = videoId;
         this.title = title;
         this.ImageUrl = ImageUrl;
-//        this.ViewCount = viewCount;
-//        this.ChannelId = channelId;
+        this.ChannelId = ChannelId;
     }
 
     public String getVideoId() {
@@ -41,20 +39,11 @@ public class SearchData {
         this.ImageUrl = imageUrl;
     }
 
-//    public String getViewCount() {
-//        return ViewCount;
-//    }
-//
-//    public void setViewCount(String viewCount){
-//        this.ViewCount = viewCount;
-//    }
-//
-//    public String getChannelId() {
-//        return ChannelId;
-//    }
-//
-//    public void setChannelId(String channelId){
-//        this.ChannelId = channelId;
-//    }
+    public String getChannelId() {
+        return ChannelId;
+    }
 
+    public void setChannelId(String ChannelId){
+        this.ChannelId = ChannelId;
+    }
 }

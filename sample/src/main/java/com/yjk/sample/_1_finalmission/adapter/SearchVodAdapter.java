@@ -3,30 +3,24 @@ package com.yjk.sample._1_finalmission.adapter;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.yjk.sample.R;
 import com.yjk.sample._1_finalmission.datamodule.SearchData;
 import com.yjk.sample.databinding.Activity1RecyclerviewItemBinding;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.mViewHolder> {
+public class SearchVodAdapter extends RecyclerView.Adapter<SearchVodAdapter.mViewHolder> {
     static final String TAG ="HAENG";
 
     ArrayList<SearchData> mList;
     Context context;
 
-    public SearchAdapter(Context context, ArrayList<SearchData> list) {
+    public SearchVodAdapter(Context context, ArrayList<SearchData> list) {
         this.context = context;
         this.mList = list;
     }
@@ -51,16 +45,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.mViewHolde
                 .load(imageUrl)
                 .into(holder.binding.titleImage);
 
-//        //채널명 셋팅
-//        binding.channel.setText(mList.get(position).getChannelId());
-//
-//        //조회수 셋팅
-//        binding.views.setText(mList.get(position).getViewCount());
+        holder.binding.channel.setText(mList.get(position).getVideoId());
+
+        //ChannelId
+        holder.binding.views.setText(mList.get(position).getChannelId());
     }
 
     @Override
     public int getItemCount() {
-        Log.d(TAG, "getItemCount: mList.size = " + mList.size());
         return mList.size();
     }
 
