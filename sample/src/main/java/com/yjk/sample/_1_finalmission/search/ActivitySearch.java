@@ -51,7 +51,6 @@ public class ActivitySearch extends YouTubeBaseActivity {
     private Context mContext;
     private ActivityDataBase db;
 
-
     private final String API_KEY = "AIzaSyAXV8MZt-Vn15KgIonqEzlx9KIs_AteSxs";
 
 
@@ -100,12 +99,18 @@ public class ActivitySearch extends YouTubeBaseActivity {
         cAdapter.setMyItemClickListener(new SearchContentsAdapter.OnItemClickCallback() {
             @Override
             public void onItem(String str) {
-                oldTitle = str;
+                if (str != null) {
+                    oldTitle = str;
+                            Log.d(TAG, "onItem: oldTitle = " + oldTitle);
 
-                ActivitySearch.searchTask searchTask = new ActivitySearch.searchTask();
-                searchTask.execute();
+                }
             }
         });
+
+        if (oldTitle !=null) {
+            ActivitySearch.searchTask searchTask = new ActivitySearch.searchTask();
+            searchTask.execute();
+        }
 
     }
 

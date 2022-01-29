@@ -20,6 +20,14 @@ public class SearchContentsAdapter extends RecyclerView.Adapter<SearchContentsAd
     private List<DataTable> mList;
     private OnItemClickCallback mCallback;
 
+    public interface OnItemClickCallback {
+        public void onItem(String str);
+    }
+
+    public void setMyItemClickListener(OnItemClickCallback onItemClickCallback){
+        this.mCallback = onItemClickCallback;
+    }
+
     public SearchContentsAdapter(Context context, List<DataTable> list){
         this.mContext = context;
         this.mList = list;
@@ -44,6 +52,7 @@ public class SearchContentsAdapter extends RecyclerView.Adapter<SearchContentsAd
 
     public class SearchViewHolder extends RecyclerView.ViewHolder {
         private Activity1SearchItemBinding binding;
+        private String str;
 
         public SearchViewHolder(@NonNull Activity1SearchItemBinding b) {
             super(b.getRoot());
@@ -52,22 +61,13 @@ public class SearchContentsAdapter extends RecyclerView.Adapter<SearchContentsAd
             binding.getRoot().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int position = getAbsoluteAdapterPosition();
-                    DataTable data = mList.get(position);
-                    String str = data.Contents;
+                    int pos = getAbsoluteAdapterPosition();
+                    DataTable data = mList.get(pos);
+                    str = data.Contents;
+                    mCallback.onItem(str);
                 }
             });
         }
-
-
-    }
-    public void setMyItemClickListener(OnItemClickCallback onItemClickCallback){
-        this.mCallback = onItemClickCallback;
-    }
-
-
-    public interface OnItemClickCallback {
-        public void onItem(String str);
     }
 }
 
