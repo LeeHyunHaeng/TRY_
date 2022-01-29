@@ -6,9 +6,11 @@
     android:orientation="vertical">
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+        android:id="@+id/uPlayer"
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        app:autoPlay="false"/>
+        app:autoPlay="false"
+        app:videoId=""/>
 
 
     <TextView

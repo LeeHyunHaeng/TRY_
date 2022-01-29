@@ -16,13 +16,11 @@ import androidx.room.Room;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.yjk.sample._1_finalmission.ActivityYouTubeMain;
-import com.yjk.sample._1_finalmission.ClearEditText.ClearEditText;
 import com.yjk.sample._1_finalmission.adapter.SearchContentsAdapter;
-import com.yjk.sample._1_finalmission.adapter.SearchVodAdapter;
+import com.yjk.sample._1_finalmission.adapter.VodAdapter;
 import com.yjk.sample._1_finalmission.datamodule.SearchData;
 import com.yjk.sample._1_finalmission.roomdb.ActivityDataBase;
 import com.yjk.sample._1_finalmission.roomdb.DataTable;
-import com.yjk.sample.databinding.Activity1SerchMainBinding;
 import com.yjk.sample.databinding.Activity1SerchMainBinding;
 
 import org.json.JSONArray;
@@ -39,19 +37,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ActivitySearch extends YouTubeBaseActivity {
-    static final String TAG = ActivitySearch.class.toString();
+    private static final String TAG = "찾아!!";
+    private final String API_KEY = "AIzaSyBZ8FJ2mt750RJYxfOqcsyZ2_JgByB3wqI";
 
     private Activity1SerchMainBinding binding;
+    private ActivityDataBase db;
+    private Context mContext;
+
     private String originUrl;
     private String oldTitle;
-    public String vodId = "";
-    private SearchVodAdapter vAdapter;
+    private String vodId = "";
+
+    private VodAdapter vAdapter;
     private SearchContentsAdapter cAdapter;
     private ArrayList<SearchData> mList;
-    private Context mContext;
-    private ActivityDataBase db;
 
-    private final String API_KEY = "AIzaSyAXV8MZt-Vn15KgIonqEzlx9KIs_AteSxs";
 
 
     @Override
@@ -71,12 +71,8 @@ public class ActivitySearch extends YouTubeBaseActivity {
             public boolean onKey(View view, int i, KeyEvent keyEvent) {
                 if ((keyEvent.getAction() == KeyEvent.ACTION_DOWN)&& (i == KeyEvent.KEYCODE_ENTER)) {
 
-                    ActivitySearch.searchTask searchTask = new ActivitySearch.searchTask();
-                    searchTask.execute();
+                    startSearch();
                     addTitle();
-
-                    binding.layoutMain.setVisibility(View.GONE);
-                    binding.layoutVod.setVisibility(View.VISIBLE);
 
                     InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(binding.search.getWindowToken(),0);
@@ -94,25 +90,16 @@ public class ActivitySearch extends YouTubeBaseActivity {
                 binding.layoutVod.setVisibility(View.GONE);
             }
         });
-
-//        아이템 클릭시 데이터 받아와서 저장
-        cAdapter.setMyItemClickListener(new SearchContentsAdapter.OnItemClickCallback() {
-            @Override
-            public void onItem(String str) {
-                if (str != null) {
-                    oldTitle = str;
-                            Log.d(TAG, "onItem: oldTitle = " + oldTitle);
-
-                }
-            }
-        });
-
-        if (oldTitle !=null) {
-            ActivitySearch.searchTask searchTask = new ActivitySearch.searchTask();
-            searchTask.execute();
-        }
-
     }
+
+    //검색 시작
+    public void startSearch() {
+        ActivitySearch.searchTask searchTask = new ActivitySearch.searchTask();
+        searchTask.execute();
+        binding.layoutMain.setVisibility(View.GONE);
+        binding.layoutVod.setVisibility(View.VISIBLE);
+    }
+
 
     public void addTitle() {
         DataTable data = new DataTable();
@@ -127,11 +114,17 @@ public class ActivitySearch extends YouTubeBaseActivity {
         binding.recyclerviewSearchTitle.setLayoutManager(linearLayoutManager);
 
         List<DataTable> dList = db.dataDao().getAll();
-        cAdapter = new SearchContentsAdapter(mContext,dList);
+        cAdapter = new SearchContentsAdapter(mContext, dList, new SearchContentsAdapter.OnItemClickCallback() {
+            @Override
+            public void onItem(String str) {
+                oldTitle = str;
+                startSearch();
+                binding.search.setText(oldTitle);
+                oldTitle ="";
+            }
+        });
         binding.recyclerviewSearchTitle.setAdapter(cAdapter);
     }
-
-
 
 //===============================검색 쓰레드 =======================================
 
@@ -164,7 +157,7 @@ public class ActivitySearch extends YouTubeBaseActivity {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivitySearch.this);
             binding.recyclerviewVod.setLayoutManager(linearLayoutManager);
 
-            vAdapter = new SearchVodAdapter(mContext,mList);
+            vAdapter = new VodAdapter(mContext,mList);
             binding.recyclerviewVod.setAdapter(vAdapter);
             vAdapter.notifyDataSetChanged();
         }
@@ -172,17 +165,15 @@ public class ActivitySearch extends YouTubeBaseActivity {
 
     public JSONObject getUtube() throws IOException {
 
-        if (oldTitle == null) {
-
+        if (oldTitle.isEmpty()) {
             originUrl = "https://www.googleapis.com/youtube/v3/search?"
                     + "part=snippet&q=" + binding.search.getText().toString()
-                    + "&key="+ API_KEY+"&maxResults=" + 50;
+                    + "&key="+ API_KEY+"&maxResults=" + 3;
         } else {
             originUrl = "https://www.googleapis.com/youtube/v3/search?"
                     + "part=snippet&q=" + oldTitle
-                    + "&key="+ API_KEY+"&maxResults=" + 50;
+                    + "&key="+ API_KEY+"&maxResults=" + 3;
         }
-
 
         URL url = new URL(originUrl);
 
@@ -214,6 +205,9 @@ public class ActivitySearch extends YouTubeBaseActivity {
     }
 
     private void parsingJsonData(JSONObject jsonObject) throws JSONException {
+        //아이템 누적 방지
+        mList.clear();
+
         JSONArray contacts = jsonObject.getJSONArray("items");
 
         for (int i =0; i < contacts.length(); i++){

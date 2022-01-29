@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.yjk.sample._1_finalmission.roomdb.DataTable;
+import com.yjk.sample._1_finalmission.search.ActivitySearch;
 import com.yjk.sample.databinding.Activity1SearchItemBinding;
 
 import java.util.List;
@@ -17,20 +18,17 @@ import java.util.List;
 public class SearchContentsAdapter extends RecyclerView.Adapter<SearchContentsAdapter.SearchViewHolder> {
     static final String TAG = SearchViewHolder.class.toString();
     private Context mContext;
-    private List<DataTable> mList;
+    private List<DataTable> dList;
     private OnItemClickCallback mCallback;
 
     public interface OnItemClickCallback {
         public void onItem(String str);
     }
 
-    public void setMyItemClickListener(OnItemClickCallback onItemClickCallback){
-        this.mCallback = onItemClickCallback;
-    }
-
-    public SearchContentsAdapter(Context context, List<DataTable> list){
+    public SearchContentsAdapter(Context context, List<DataTable> list,OnItemClickCallback call){
         this.mContext = context;
-        this.mList = list;
+        this.dList = list;
+        this.mCallback = call;
     }
 
     @NonNull
@@ -42,12 +40,12 @@ public class SearchContentsAdapter extends RecyclerView.Adapter<SearchContentsAd
 
     @Override
     public void onBindViewHolder(@NonNull SearchViewHolder holder, int position) {
-        holder.binding.titleContents.setText(mList.get(position).Contents);
+        holder.binding.titleContents.setText(dList.get(position).Contents);
     }
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return dList.size();
     }
 
     public class SearchViewHolder extends RecyclerView.ViewHolder {
@@ -62,7 +60,7 @@ public class SearchContentsAdapter extends RecyclerView.Adapter<SearchContentsAd
                 @Override
                 public void onClick(View view) {
                     int pos = getAbsoluteAdapterPosition();
-                    DataTable data = mList.get(pos);
+                    DataTable data = dList.get(pos);
                     str = data.Contents;
                     mCallback.onItem(str);
                 }

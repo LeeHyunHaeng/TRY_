@@ -1,8 +1,9 @@
 package com.yjk.sample._1_finalmission.adapter;
 
 import android.content.Context;
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -14,13 +15,13 @@ import com.yjk.sample.databinding.Activity1RecyclerviewItemBinding;
 
 import java.util.ArrayList;
 
-public class SearchVodAdapter extends RecyclerView.Adapter<SearchVodAdapter.mViewHolder> {
+public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
     static final String TAG ="HAENG";
 
     ArrayList<SearchData> mList;
     Context context;
 
-    public SearchVodAdapter(Context context, ArrayList<SearchData> list) {
+    public VodAdapter(Context context, ArrayList<SearchData> list) {
         this.context = context;
         this.mList = list;
     }
@@ -64,11 +65,11 @@ public class SearchVodAdapter extends RecyclerView.Adapter<SearchVodAdapter.mVie
             binding = b;
 
 //            //유튜브 영상을 클릭하면 재생이 되는 액티비티로 이동
-//            itemView.setOnClickListener(new View.OnClickListener() {
+//            binding.getRoot().setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
-//                    int position=getAdapterPosition();
-//                    Intent intent = new Intent(context, UtubePlay.class);
+//                    int position = getAbsoluteAdapterPosition();
+//                    Intent intent = new Intent(context, .class);
 //                    intent.putExtra("id", mList.get(position).getVideoId());
 //                    context.startActivity(intent);
 //                }

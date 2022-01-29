@@ -1,26 +1,43 @@
 package com.yjk.sample._1_finalmission;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.yjk.common.view.base.BaseActivity;
-import com.yjk.sample.R;
-import com.yjk.sample._1_finalmission.adapter.MainAdapter;
+import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.yjk.sample._1_finalmission.adapter.VodAdapter;
+import com.yjk.sample._1_finalmission.datamodule.SearchData;
 import com.yjk.sample._1_finalmission.search.ActivitySearch;
 import com.yjk.sample.databinding.Activity1MainBinding;
 
-public class ActivityYouTubeMain extends BaseActivity {
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+
+public class ActivityYouTubeMain extends YouTubeBaseActivity {
 
     private Activity1MainBinding binding;
-    private MainAdapter adapter;
+    private String originUrl;
+    private String oldTitle;
+    private String vodId = "";
+    private ArrayList<SearchData> mList;
+    private Context mContext;
+    private VodAdapter adapter;
+
+    private final String API_KEY = "AIzaSyBZ8FJ2mt750RJYxfOqcsyZ2_JgByB3wqI";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,24 +45,118 @@ public class ActivityYouTubeMain extends BaseActivity {
         binding = Activity1MainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        initView();
-        setEvent();
+        mList = new ArrayList<>();
+
+        searchVod searchVod = new searchVod();
+        searchVod.execute();
+        }
+
+//===============================검색 쓰레드 =======================================
+
+    private class searchVod extends AsyncTask<Void,Void,Void> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                JSONObject jsonObject = getUtube();
+                parsingJsonData(jsonObject);
+            } catch (JSONException | IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityYouTubeMain.this);
+            binding.recyclerviewMain.setLayoutManager(linearLayoutManager);
+
+            adapter = new VodAdapter(mContext,mList);
+            binding.recyclerviewMain.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
     }
 
-    @Override
-    protected void initView() {
+    public JSONObject getUtube() throws IOException {
 
-        binding.recyclerviewMain.setLayoutManager(new LinearLayoutManager(mContext));
-        binding.recyclerviewMain.setAdapter(adapter);
+        originUrl = "https://www.googleapis.com/youtube/v3/search?"
+                + "part=snippet&q= 팝송"
+                + "&key="+ API_KEY+"&maxResults=" + 50;
+
+        URL url = new URL(originUrl);
+
+        HttpURLConnection connection =(HttpURLConnection)url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setReadTimeout(10000);
+        connection.setConnectTimeout(15000);
+        connection.connect();
+
+        String line;
+        String result="";
+        InputStream inputStream=connection.getInputStream();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        StringBuffer response = new StringBuffer();
+
+        while ((line = reader.readLine())!=null){
+            response.append(line);
+        }
+        result=response.toString();
+
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject = new JSONObject(result);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return jsonObject;
     }
 
-    @Override
-    protected void setEvent() {
+    private void parsingJsonData(JSONObject jsonObject) throws JSONException {
+        //아이템 누적 방지
+        mList.clear();
+
+        JSONArray contacts = jsonObject.getJSONArray("items");
+
+        for (int i =0; i < contacts.length(); i++){
+            JSONObject o = contacts.getJSONObject(i);
+            String kind = o.getJSONObject("id").getString("kind");
+
+            if(kind.equals("youtube#video")){
+                vodId = o.getJSONObject("id").getString("videoId");
+            }else {
+                vodId = o.getJSONObject("id").getString("playlistId");
+            }
+            String title = o.getJSONObject("snippet").getString("title");
+            String changeT = stringToHtmlSign(title);
+
+            String channelId = o.getJSONObject("snippet").getString("channelId");
+
+//            long viewCount = o.getJSONObject("statistics").getLong("viewCount");
+//            Log.d(TAG, "parsingJsonData: viewCount = " + viewCount);
+
+            String imageUrl = o.getJSONObject("snippet").getJSONObject("thumbnails")
+                    .getJSONObject("high").getString("url");
+
+
+            mList.add(new SearchData(vodId,changeT,imageUrl,channelId));
+        }
     }
 
-    //검색버튼 누르면 검색화면으로 전환 메서드
+    private String stringToHtmlSign(String str) {
+        return str.replaceAll("&amp;", "&")
+                .replaceAll("[<]","&lt;")
+                .replaceAll("[>]","&gt;")
+                .replaceAll("&quot;","'")
+                .replaceAll("&#39;","'");
+    }
     public void videoSearch(View view) {
-        Intent intent = new Intent(this,ActivitySearch.class);
+        Intent intent = new Intent(this, ActivitySearch.class);
         startActivity(intent);
         finish();
     }
