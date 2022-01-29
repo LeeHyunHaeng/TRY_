@@ -16,6 +16,7 @@ import androidx.room.Room;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.yjk.sample._1_finalmission.ActivityYouTubeMain;
+import com.yjk.sample._1_finalmission.ClearEditText.ClearEditText;
 import com.yjk.sample._1_finalmission.adapter.SearchContentsAdapter;
 import com.yjk.sample._1_finalmission.adapter.SearchVodAdapter;
 import com.yjk.sample._1_finalmission.datamodule.SearchData;
@@ -42,6 +43,7 @@ public class ActivitySearch extends YouTubeBaseActivity {
 
     private Activity1SerchMainBinding binding;
     private String originUrl;
+    private String oldTitle;
     public String vodId = "";
     private SearchVodAdapter vAdapter;
     private SearchContentsAdapter cAdapter;
@@ -49,7 +51,8 @@ public class ActivitySearch extends YouTubeBaseActivity {
     private Context mContext;
     private ActivityDataBase db;
 
-    private final String API_KEY = "AIzaSyClFsSCuSD9HYyA7NLX0C8WSHCShNsQJYs";
+
+    private final String API_KEY = "AIzaSyAXV8MZt-Vn15KgIonqEzlx9KIs_AteSxs";
 
 
     @Override
@@ -62,6 +65,7 @@ public class ActivitySearch extends YouTubeBaseActivity {
         sendTitle();
 
         mList = new ArrayList<>();
+
 //        검색창에서 엔터 누르면 바로 search클래스 실행
         binding.search.setOnKeyListener(new View.OnKeyListener() {
             @Override
@@ -83,6 +87,7 @@ public class ActivitySearch extends YouTubeBaseActivity {
             }
         });
 
+//        검색화면 전환
         binding.search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,6 +95,18 @@ public class ActivitySearch extends YouTubeBaseActivity {
                 binding.layoutVod.setVisibility(View.GONE);
             }
         });
+
+//        아이템 클릭시 데이터 받아와서 저장
+        cAdapter.setMyItemClickListener(new SearchContentsAdapter.OnItemClickCallback() {
+            @Override
+            public void onItem(String str) {
+                oldTitle = str;
+
+                ActivitySearch.searchTask searchTask = new ActivitySearch.searchTask();
+                searchTask.execute();
+            }
+        });
+
     }
 
     public void addTitle() {
@@ -123,7 +140,8 @@ public class ActivitySearch extends YouTubeBaseActivity {
             super.onPreExecute();
         }
 
-        //실질직인 작업 수행행
+        /** 실질직인 작업 수행
+         */
        @Override
         protected Void doInBackground(Void... params) {
             try {
@@ -149,9 +167,17 @@ public class ActivitySearch extends YouTubeBaseActivity {
 
     public JSONObject getUtube() throws IOException {
 
-        originUrl = "https://www.googleapis.com/youtube/v3/search?"
-                + "part=snippet&q=" + binding.search.getText().toString()
-                + "&key="+ API_KEY+"&maxResults=" + 50;
+        if (oldTitle == null) {
+
+            originUrl = "https://www.googleapis.com/youtube/v3/search?"
+                    + "part=snippet&q=" + binding.search.getText().toString()
+                    + "&key="+ API_KEY+"&maxResults=" + 50;
+        } else {
+            originUrl = "https://www.googleapis.com/youtube/v3/search?"
+                    + "part=snippet&q=" + oldTitle
+                    + "&key="+ API_KEY+"&maxResults=" + 50;
+        }
+
 
         URL url = new URL(originUrl);
 
