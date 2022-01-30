@@ -28,16 +28,18 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class ActivityYouTubeMain extends YouTubeBaseActivity {
+    private final String API_KEY = "AIzaSyBZ8FJ2mt750RJYxfOqcsyZ2_JgByB3wqI";
 
     private Activity1MainBinding binding;
+    private Context mContext;
+
     private String originUrl;
     private String oldTitle;
     private String vodId = "";
+
     private ArrayList<SearchData> mList;
-    private Context mContext;
     private VodAdapter adapter;
 
-    private final String API_KEY = "AIzaSyBZ8FJ2mt750RJYxfOqcsyZ2_JgByB3wqI";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
