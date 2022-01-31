@@ -38,7 +38,7 @@ import java.util.List;
 
 public class ActivitySearch extends YouTubeBaseActivity {
     private static final String TAG = "찾아!!";
-    private final String API_KEY = "AIzaSyBZ8FJ2mt750RJYxfOqcsyZ2_JgByB3wqI";
+    private final String API_KEY = "AIzaSyAXV8MZt-Vn15KgIonqEzlx9KIs_AteSxs";
 
     private Activity1SerchMainBinding binding;
     private ActivityDataBase db;
@@ -168,11 +168,11 @@ public class ActivitySearch extends YouTubeBaseActivity {
         if (oldTitle == null) {
             originUrl = "https://www.googleapis.com/youtube/v3/search?"
                     + "part=snippet&q=" + binding.search.getText().toString()
-                    + "&key="+ API_KEY+"&maxResults=" + 3;
+                    + "&key="+ API_KEY+"&maxResults=" + 50;
         } else {
             originUrl = "https://www.googleapis.com/youtube/v3/search?"
                     + "part=snippet&q=" + oldTitle
-                    + "&key="+ API_KEY+"&maxResults=" + 3;
+                    + "&key="+ API_KEY+"&maxResults=" + 50;
         }
 
         URL url = new URL(originUrl);

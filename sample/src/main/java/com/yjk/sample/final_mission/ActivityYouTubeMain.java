@@ -29,7 +29,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class ActivityYouTubeMain extends YouTubeBaseActivity {
-    private final String API_KEY = "AIzaSyBZ8FJ2mt750RJYxfOqcsyZ2_JgByB3wqI";
+    private final String API_KEY = "AIzaSyAXV8MZt-Vn15KgIonqEzlx9KIs_AteSxs";
 
     private Activity1MainBinding binding;
     private Context mContext;

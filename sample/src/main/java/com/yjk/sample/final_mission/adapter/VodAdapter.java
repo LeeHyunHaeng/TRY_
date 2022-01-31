@@ -16,6 +16,7 @@ import com.yjk.sample.final_mission.heart_list.ActivityMyList;
 import com.yjk.sample.final_mission.player.ActivityPlayer;
 import com.yjk.sample.databinding.Activity1RecyclerviewItemBinding;
 import com.yjk.sample.final_mission.roomdb.DataTable;
+import com.yjk.sample.final_mission.roomdb.DataTableVod;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -25,17 +26,20 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
     static final String TAG ="HAENG";
 
     private ArrayList<SearchData> mList;
-    private List<DataTable> dList;
+    private List<DataTableVod> dList;
     private Context context;
     private OnItemLongCallback mCallback;
+    private SearchData data;
 
     public VodAdapter(Context context, ArrayList<SearchData> list) {
         this.context = context;
         this.mList = list;
+        this.data = new SearchData();
     }
 
-    public VodAdapter(List<DataTable> dlist){
+    public VodAdapter(List<DataTableVod> dlist, SearchData sData){
         this.dList = dlist;
+        this.data = sData;
     }
 
     public interface OnItemLongCallback {
@@ -54,7 +58,7 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
     public void onBindViewHolder(@NonNull mViewHolder holder, int position) {
 
         //좋아요 영상 띄우기
-        if (dList !=null) {
+        if (data.isLike()) {
             holder.binding.title.setText(dList.get(position).title);
 
             String likeUrl = dList.get(position).uri;
@@ -67,19 +71,19 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
 
         } else {
 
-        //영상제목 셋팅
-        holder.binding.title.setText(mList.get(position).getTitle());
+            //영상제목 셋팅
+            holder.binding.title.setText(mList.get(position).getTitle());
 
-        //이미지를 넣어주기 위해 이미지url을 가져와서 썸에일 적용.
-        String imageUrl = mList.get(position).getImageUrl();
-        Glide.with(holder.binding.titleImage)
-                .load(imageUrl)
-                .into(holder.binding.titleImage);
+            //이미지를 넣어주기 위해 이미지url을 가져와서 썸에일 적용.
+            String imageUrl = mList.get(position).getImageUrl();
+            Glide.with(holder.binding.titleImage)
+                    .load(imageUrl)
+                    .into(holder.binding.titleImage);
 
-        holder.binding.channel.setText(mList.get(position).getVideoId());
+            holder.binding.channel.setText(mList.get(position).getVideoId());
 
-        //ChannelId
-        holder.binding.views.setText(mList.get(position).getChannelId());
+            //ChannelId
+            holder.binding.views.setText(mList.get(position).getChannelId());
         }
 
     }
@@ -107,8 +111,15 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
                 public void onClick(View v) {
                     int position = getAbsoluteAdapterPosition();
                     Intent i = new Intent(binding.getRoot().getContext(), ActivityPlayer.class);
-                    i.putExtra("id", mList.get(position).getVideoId());
+
+                    if (mList == null){
+                        i.putExtra("id",dList.get(position).vodId);
+                    } else{
+                        i.putExtra("id", mList.get(position).getVideoId());
+                    }
+
                     binding.getRoot().getContext().startActivity(i);
+
                 }
             });
 
@@ -116,13 +127,15 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
             binding.heart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    data.setLike(!data.isLike());
+                    Log.d(TAG, "onClick: data.isLike = " + data.isLike());
                     int position = getAbsoluteAdapterPosition();
                     Intent i = new Intent(binding.getRoot().getContext(), ActivityMyList.class);
                     i.putExtra("id", mList.get(position).getVideoId());
                     i.putExtra("title",mList.get(position).getTitle());
                     i.putExtra("uri", mList.get(position).getImageUrl());
                     i.putExtra("channelId",mList.get(position).getChannelId());
-
                     binding.getRoot().getContext().startActivity(i);
                 }
             });

@@ -4,9 +4,11 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class DataTable {
+public class DataTableVod {
     @PrimaryKey(autoGenerate = true)
     public int id;
-    //검색기록 저장
-    public String Contents;
+
+    //좋아요 영상 저장
+    public String vodId,title,uri,channelId;
+
 }

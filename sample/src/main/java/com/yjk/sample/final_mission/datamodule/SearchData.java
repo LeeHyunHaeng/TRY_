@@ -7,6 +7,7 @@ public class SearchData {
     String title;
     String imageUrl;
     String channelId;
+    boolean isLike = false;
 
     public SearchData(String videoId, String title, String ImageUrl,String ChannelId) {
         this.videoId = videoId;
@@ -14,6 +15,7 @@ public class SearchData {
         this.imageUrl = ImageUrl;
         this.channelId = ChannelId;
     }
+    public SearchData(){}
 
     public String getVideoId() {
         return videoId;
@@ -45,5 +47,13 @@ public class SearchData {
 
     public void setChannelId(String ChannelId){
         this.channelId = ChannelId;
+    }
+
+    public boolean isLike() {
+        return isLike;
+    }
+
+    public void setLike(boolean like) {
+        isLike = like;
     }
 }
