@@ -20,7 +20,7 @@ public class ActivityPlayer  extends AppCompatActivity {
     private static final String TAG = ActivityPlayer.class.toString();
 
     private Activity1PlayerBinding binding;
-    private String id;
+    private String vodid,title,uri,channelid;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,8 +29,11 @@ public class ActivityPlayer  extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         Intent i = getIntent();
-        id = i.getStringExtra("id");
-        Log.d(TAG, "init: id = " + id);
+        vodid = i.getStringExtra("id");
+        title = i.getStringExtra("title");
+
+        binding.title.setText(title);
+
 
         startPlayer();
     }
@@ -43,7 +46,7 @@ public class ActivityPlayer  extends AppCompatActivity {
             @Override
             public void onReady(@NonNull YouTubePlayer youTubePlayer) {
 
-                youTubePlayer.loadVideo(id,0);
+                youTubePlayer.loadVideo(vodid,0);
             }
         });
     }

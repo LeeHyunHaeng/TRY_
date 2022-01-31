@@ -29,7 +29,6 @@ public class ActivityMyList extends AppCompatActivity {
     private VodAdapter adapter;
     private ActivityDataBase db;
     private Intent intent;
-    private String No = "NO";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,8 +67,7 @@ public class ActivityMyList extends AppCompatActivity {
     }
 
     public void deleteProfile(){
-        DataTableVod data = new DataTableVod();
-//        db.dataDao().deleteVod(data.vodId);
+
 
     }
 

@@ -9,12 +9,14 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 import com.bumptech.glide.Glide;
 import com.yjk.sample.final_mission.datamodule.SearchData;
 import com.yjk.sample.final_mission.heart_list.ActivityMyList;
 import com.yjk.sample.final_mission.player.ActivityPlayer;
 import com.yjk.sample.databinding.Activity1RecyclerviewItemBinding;
+import com.yjk.sample.final_mission.roomdb.ActivityDataBase;
 import com.yjk.sample.final_mission.roomdb.DataTable;
 import com.yjk.sample.final_mission.roomdb.DataTableVod;
 
@@ -30,6 +32,7 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
     private Context context;
     private OnItemLongCallback mCallback;
     private SearchData data;
+    private ActivityDataBase db;
 
     public VodAdapter(Context context, ArrayList<SearchData> list) {
         this.context = context;
@@ -114,8 +117,11 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
 
                     if (mList == null){
                         i.putExtra("id",dList.get(position).vodId);
+                        i.putExtra("title",dList.get(position).title);
                     } else{
                         i.putExtra("id", mList.get(position).getVideoId());
+                        i.putExtra("title",mList.get(position).getTitle());
+
                     }
 
                     binding.getRoot().getContext().startActivity(i);
@@ -144,8 +150,17 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
             binding.getRoot().setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {
+                    DataTableVod data = new DataTableVod();
                     int position = getAbsoluteAdapterPosition();
+                    Intent i = new Intent(binding.getRoot().getContext(), ActivityMyList.class);
+
+                    data.vodId = dList.get(position).vodId;
+
+                    db = Room.databaseBuilder(binding.getRoot().getContext(), ActivityDataBase.class,"deleteVod").allowMainThreadQueries().build();
+//                    db.dataDao().deleteVod(data);
+                    Log.d(TAG, "onLongClick: data = " + data.vodId);
                     dList.remove(position);
+                    notifyDataSetChanged();
                     return true;
                 }
             });

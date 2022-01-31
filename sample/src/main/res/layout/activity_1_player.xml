@@ -13,23 +13,27 @@
                 app:autoPlay="false"/>
 
             <TextView
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Title"
                 android:paddingBottom="2.5dp"/>
             <TextView
+                android:id="@+id/views"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Views"
                 android:paddingTop="1.5dp"
                 android:paddingBottom="1dp"/>
             <TextView
+                android:id="@+id/day"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Day"
                 android:paddingTop="1dp"
                 android:paddingBottom="1.5dp"/>
             <TextView
+                android:id="@+id/tag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Tag"
