@@ -1,7 +1,8 @@
-package com.yjk.sample._1_final_mission.adapter;
+package com.yjk.sample.final_mission.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.yjk.sample._1_final_mission.collect_data.SearchData;
-import com.yjk.sample._1_final_mission.player.ActivityPlayer;
+import com.yjk.sample.final_mission.datamodule.SearchData;
+import com.yjk.sample.final_mission.heart_list.ActivityMyList;
+import com.yjk.sample.final_mission.player.ActivityPlayer;
 import com.yjk.sample.databinding.Activity1RecyclerviewItemBinding;
 
 import java.util.ArrayList;
@@ -76,8 +78,49 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
                 }
             });
 
+            //영상 좋아요 누를때 데이터 전달
+            binding.heart.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAbsoluteAdapterPosition();
+                    Intent i = new Intent(binding.getRoot().getContext(), ActivityMyList.class);
+                    i.putExtra("id", mList.get(position).getVideoId());
+//                    i.putExtra("title",mList.get(position).getTitle());
+                    i.putExtra("uri", mList.get(position).getImageUrl());
+
+
+                    Log.d(TAG, "onClick: uri = " + mList.get(position).getImageUrl());
+
+
+                    binding.getRoot().getContext().startActivity(i);
+                }
+            });
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

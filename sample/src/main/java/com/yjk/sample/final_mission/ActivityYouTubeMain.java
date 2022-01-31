@@ -1,4 +1,4 @@
-package com.yjk.sample._1_final_mission;
+package com.yjk.sample.final_mission;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
-import com.yjk.sample._1_final_mission.adapter.VodAdapter;
-import com.yjk.sample._1_final_mission.collect_data.SearchData;
-import com.yjk.sample._1_final_mission.search.ActivitySearch;
+import com.yjk.sample.final_mission.adapter.VodAdapter;
+import com.yjk.sample.final_mission.datamodule.SearchData;
+import com.yjk.sample.final_mission.search.ActivitySearch;
 import com.yjk.sample.databinding.Activity1MainBinding;
 
 import org.json.JSONArray;
@@ -51,9 +51,19 @@ public class ActivityYouTubeMain extends YouTubeBaseActivity {
 
         searchVod searchVod = new searchVod();
         searchVod.execute();
+
+        setEvent();
+
+    }
+
+    //리스트 목록
+    public void setEvent() {
+
         }
 
-//===============================검색 쓰레드 =======================================
+
+
+//===============================첫 화면 영상 검색=======================================
 
     private class searchVod extends AsyncTask<Void,Void,Void> {
         @Override

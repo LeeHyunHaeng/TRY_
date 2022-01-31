@@ -1,4 +1,4 @@
-package com.yjk.sample._1_final_mission.roomdb;
+package com.yjk.sample.final_mission.roomdb;
 
 import androidx.room.Database;
 import androidx.room.RoomDatabase;

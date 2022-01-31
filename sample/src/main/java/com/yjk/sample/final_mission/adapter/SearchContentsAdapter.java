@@ -1,4 +1,4 @@
-package com.yjk.sample._1_final_mission.adapter;
+package com.yjk.sample.final_mission.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.yjk.sample._1_final_mission.roomdb.DataTable;
+import com.yjk.sample.final_mission.roomdb.DataTable;
 import com.yjk.sample.databinding.Activity1SearchItemBinding;
 
 import java.util.List;

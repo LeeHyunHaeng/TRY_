@@ -27,23 +27,63 @@
             android:paddingBottom="5dp"
             android:textSize="20dp" />
 
-        <TextView
-            android:id="@+id/channel"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="channel name"
-            android:textSize="20dp"
-            android:paddingStart="5dp"
-            android:paddingBottom="5dp"/>
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/views"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="views"
-            android:textSize="20dp"
-            android:paddingStart="5dp"
-            android:paddingBottom="3dp"/>
+            <RelativeLayout
+                android:id="@+id/heart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:visibility="visible">
+
+                <ImageView
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/heart"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="6dp"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/channel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="channel name"
+                android:textSize="20dp"
+                android:paddingStart="5dp"
+                android:paddingBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/views"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="views"
+                android:textSize="20dp"
+                android:paddingStart="5dp"
+                android:paddingBottom="3dp"/>
+
+
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
 
     </LinearLayout>
 

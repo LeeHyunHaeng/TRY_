@@ -23,34 +23,14 @@
             android:layout_alignParentEnd="true">
 
             <RelativeLayout
-                android:id="@+id/list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:src="@drawable/ic_baseline_format_list_bulleted_24" />
-
-            </RelativeLayout>
-
-            <View
-                android:layout_width="10dp"
-                android:layout_height="0dp"/>
-
-            <RelativeLayout
                 android:id="@+id/re_search"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:onClick="videoSearch">
 
                 <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
@@ -62,8 +42,10 @@
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_main"
+        android:id="@+id/recyclerview_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+
 
 </LinearLayout>

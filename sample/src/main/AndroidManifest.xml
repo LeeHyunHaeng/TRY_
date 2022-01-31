@@ -13,7 +13,7 @@
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
 
 
-        <activity android:name="._1_final_mission.ActivityYouTubeMain"
+        <activity android:name=".final_mission.ActivityYouTubeMain"
             android:screenOrientation="portrait"
             android:exported="true">
         <intent-filter>
@@ -22,8 +22,9 @@
         </intent-filter>
         </activity>
 
-        <activity android:name="._1_final_mission.search.ActivitySearch"/>
-        <activity android:name="._1_final_mission.player.ActivityPlayer"/>
+        <activity android:name=".final_mission.search.ActivitySearch"/>
+        <activity android:name=".final_mission.player.ActivityPlayer"/>
+        <activity android:name=".final_mission.heart_list.ActivityMyList"/>
 
     </application>
 

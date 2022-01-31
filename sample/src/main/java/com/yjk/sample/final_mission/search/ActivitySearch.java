@@ -1,4 +1,4 @@
-package com.yjk.sample._1_final_mission.search;
+package com.yjk.sample.final_mission.search;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,12 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.room.Room;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
-import com.yjk.sample._1_final_mission.ActivityYouTubeMain;
-import com.yjk.sample._1_final_mission.adapter.SearchContentsAdapter;
-import com.yjk.sample._1_final_mission.adapter.VodAdapter;
-import com.yjk.sample._1_final_mission.collect_data.SearchData;
-import com.yjk.sample._1_final_mission.roomdb.ActivityDataBase;
-import com.yjk.sample._1_final_mission.roomdb.DataTable;
+import com.yjk.sample.final_mission.ActivityYouTubeMain;
+import com.yjk.sample.final_mission.adapter.SearchContentsAdapter;
+import com.yjk.sample.final_mission.adapter.VodAdapter;
+import com.yjk.sample.final_mission.datamodule.SearchData;
+import com.yjk.sample.final_mission.roomdb.ActivityDataBase;
+import com.yjk.sample.final_mission.roomdb.DataTable;
 import com.yjk.sample.databinding.Activity1SerchMainBinding;
 
 import org.json.JSONArray;
@@ -120,7 +120,7 @@ public class ActivitySearch extends YouTubeBaseActivity {
                 oldTitle = str;
                 startSearch();
                 binding.search.setText(oldTitle);
-                oldTitle ="";
+
             }
         });
         binding.recyclerviewSearchTitle.setAdapter(cAdapter);
@@ -165,7 +165,7 @@ public class ActivitySearch extends YouTubeBaseActivity {
 
     public JSONObject getUtube() throws IOException {
 
-        if (oldTitle.isEmpty()) {
+        if (oldTitle == null) {
             originUrl = "https://www.googleapis.com/youtube/v3/search?"
                     + "part=snippet&q=" + binding.search.getText().toString()
                     + "&key="+ API_KEY+"&maxResults=" + 3;
@@ -233,6 +233,7 @@ public class ActivitySearch extends YouTubeBaseActivity {
 
             mList.add(new SearchData(vodId,changeT,imageUrl,channelId));
             Log.d(TAG, "parsingJsonData: mList = " + mList);
+            oldTitle ="";
         }
     }
 
