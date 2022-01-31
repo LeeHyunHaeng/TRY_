@@ -15,18 +15,31 @@ import com.yjk.sample.final_mission.datamodule.SearchData;
 import com.yjk.sample.final_mission.heart_list.ActivityMyList;
 import com.yjk.sample.final_mission.player.ActivityPlayer;
 import com.yjk.sample.databinding.Activity1RecyclerviewItemBinding;
+import com.yjk.sample.final_mission.roomdb.DataTable;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
     static final String TAG ="HAENG";
 
     private ArrayList<SearchData> mList;
+    private List<DataTable> dList;
     private Context context;
+    private OnItemLongCallback mCallback;
 
     public VodAdapter(Context context, ArrayList<SearchData> list) {
         this.context = context;
         this.mList = list;
+    }
+
+    public VodAdapter(List<DataTable> dlist){
+        this.dList = dlist;
+    }
+
+    public interface OnItemLongCallback {
+        void onItemDelete(View v, int position);
     }
 
     @NonNull
@@ -39,6 +52,20 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull mViewHolder holder, int position) {
+
+        //좋아요 영상 띄우기
+        if (dList !=null) {
+            holder.binding.title.setText(dList.get(position).title);
+
+            String likeUrl = dList.get(position).uri;
+            Glide.with(holder.binding.titleImage)
+                    .load(likeUrl)
+                    .into(holder.binding.titleImage);
+
+            holder.binding.channel.setText(dList.get(position).channelId);
+            holder.binding.heart.setVisibility(View.GONE);
+
+        } else {
 
         //영상제목 셋팅
         holder.binding.title.setText(mList.get(position).getTitle());
@@ -53,11 +80,18 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
 
         //ChannelId
         holder.binding.views.setText(mList.get(position).getChannelId());
+        }
+
     }
 
     @Override
     public int getItemCount() {
-        return mList.size();
+
+        if (dList != null){
+            return dList.size();
+        } else {
+            return mList.size();
+        }
     }
 
     public class mViewHolder extends RecyclerView.ViewHolder{
@@ -85,16 +119,24 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
                     int position = getAbsoluteAdapterPosition();
                     Intent i = new Intent(binding.getRoot().getContext(), ActivityMyList.class);
                     i.putExtra("id", mList.get(position).getVideoId());
-//                    i.putExtra("title",mList.get(position).getTitle());
+                    i.putExtra("title",mList.get(position).getTitle());
                     i.putExtra("uri", mList.get(position).getImageUrl());
-
-
-                    Log.d(TAG, "onClick: uri = " + mList.get(position).getImageUrl());
-
+                    i.putExtra("channelId",mList.get(position).getChannelId());
 
                     binding.getRoot().getContext().startActivity(i);
                 }
             });
+
+            //좋아요 동영상 롱클릭시 삭제
+            binding.getRoot().setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    int position = getAbsoluteAdapterPosition();
+                    dList.remove(position);
+                    return true;
+                }
+            });
+
         }
     }
 }

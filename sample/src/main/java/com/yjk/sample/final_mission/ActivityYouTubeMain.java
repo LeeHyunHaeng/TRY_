@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.yjk.sample.final_mission.adapter.VodAdapter;
 import com.yjk.sample.final_mission.datamodule.SearchData;
+import com.yjk.sample.final_mission.heart_list.ActivityMyList;
 import com.yjk.sample.final_mission.search.ActivitySearch;
 import com.yjk.sample.databinding.Activity1MainBinding;
 
@@ -164,8 +165,14 @@ public class ActivityYouTubeMain extends YouTubeBaseActivity {
                 .replaceAll("&quot;","'")
                 .replaceAll("&#39;","'");
     }
-    public void videoSearch(View view) {
+
+    public void moveSearch(View view) {
         Intent intent = new Intent(this, ActivitySearch.class);
+        startActivity(intent);
+        finish();
+    }
+    public void moveList(View view) {
+        Intent intent = new Intent(this, ActivityMyList.class);
         startActivity(intent);
         finish();
     }

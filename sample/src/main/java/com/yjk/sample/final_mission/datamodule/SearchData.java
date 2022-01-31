@@ -5,14 +5,14 @@ package com.yjk.sample.final_mission.datamodule;
 public class SearchData {
     String videoId;
     String title;
-    String ImageUrl;
-    String ChannelId;
+    String imageUrl;
+    String channelId;
 
     public SearchData(String videoId, String title, String ImageUrl,String ChannelId) {
         this.videoId = videoId;
         this.title = title;
-        this.ImageUrl = ImageUrl;
-        this.ChannelId = ChannelId;
+        this.imageUrl = ImageUrl;
+        this.channelId = ChannelId;
     }
 
     public String getVideoId() {
@@ -32,18 +32,18 @@ public class SearchData {
     }
 
     public String getImageUrl() {
-        return ImageUrl;
+        return imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
-        this.ImageUrl = imageUrl;
+        this.imageUrl = imageUrl;
     }
 
     public String getChannelId() {
-        return ChannelId;
+        return channelId;
     }
 
     public void setChannelId(String ChannelId){
-        this.ChannelId = ChannelId;
+        this.channelId = ChannelId;
     }
 }
