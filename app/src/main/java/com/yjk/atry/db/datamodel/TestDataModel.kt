@@ -8,11 +8,11 @@ import androidx.room.Entity
 @Entity ( tableName = BaseDataModel.TABLE_NAME)
 abstract class TestDataModel(id : String){
 
-    /**
-     * TABLE NAME 재 정의 필수
-     */
-    companion object {
-        const val TABLE_NAME = "test"
-    }
+//    /**
+//     * TABLE NAME 재 정의 필수
+//     */
+//    companion object {
+//        const val TABLE_NAME = "test"
+//    }
 
 }

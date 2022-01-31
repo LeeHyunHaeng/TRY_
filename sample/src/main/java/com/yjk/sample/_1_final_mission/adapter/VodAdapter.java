@@ -1,4 +1,4 @@
-package com.yjk.sample._1_finalmission.adapter;
+package com.yjk.sample._1_final_mission.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.yjk.sample._1_finalmission.datamodule.SearchData;
+import com.yjk.sample._1_final_mission.collect_data.SearchData;
+import com.yjk.sample._1_final_mission.player.ActivityPlayer;
 import com.yjk.sample.databinding.Activity1RecyclerviewItemBinding;
 
 import java.util.ArrayList;
@@ -18,8 +19,8 @@ import java.util.ArrayList;
 public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
     static final String TAG ="HAENG";
 
-    ArrayList<SearchData> mList;
-    Context context;
+    private ArrayList<SearchData> mList;
+    private Context context;
 
     public VodAdapter(Context context, ArrayList<SearchData> list) {
         this.context = context;
@@ -62,18 +63,18 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
 
         public mViewHolder(@NonNull Activity1RecyclerviewItemBinding b) {
             super(b.getRoot());
-            binding = b;
+            this.binding = b;
 
-//            //유튜브 영상을 클릭하면 재생이 되는 액티비티로 이동
-//            binding.getRoot().setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    int position = getAbsoluteAdapterPosition();
-//                    Intent intent = new Intent(context, .class);
-//                    intent.putExtra("id", mList.get(position).getVideoId());
-//                    context.startActivity(intent);
-//                }
-//            });
+            //유튜브 영상을 클릭하면 재생이 되는 액티비티로 이동
+            binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAbsoluteAdapterPosition();
+                    Intent i = new Intent(binding.getRoot().getContext(), ActivityPlayer.class);
+                    i.putExtra("id", mList.get(position).getVideoId());
+                    binding.getRoot().getContext().startActivity(i);
+                }
+            });
 
         }
     }

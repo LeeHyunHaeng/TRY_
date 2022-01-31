@@ -13,17 +13,18 @@
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar">
 
 
-        <activity android:name="._1_finalmission.ActivityYouTubeMain"
+        <activity android:name="._1_final_mission.ActivityYouTubeMain"
             android:screenOrientation="portrait"
             android:exported="true">
-
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
-
         </activity>
-        <activity android:name="._1_finalmission.search.ActivitySearch"/>
+
+        <activity android:name="._1_final_mission.search.ActivitySearch"/>
+        <activity android:name="._1_final_mission.player.ActivityPlayer"/>
+
     </application>
 
 

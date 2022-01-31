@@ -1,4 +1,4 @@
-package com.yjk.sample._1_finalmission.ClearEditText;
+package com.yjk.sample._1_final_mission.clear_edit_text;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

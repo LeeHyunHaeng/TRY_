@@ -1,4 +1,4 @@
-package com.yjk.sample._1_finalmission.datamodule;
+package com.yjk.sample._1_final_mission.collect_data;
 
 //URL로 부터 가지고 온 데이터를 객체화 시켜서 리사이클러뷰에 넣어주기 위한 클래스입니다.
 

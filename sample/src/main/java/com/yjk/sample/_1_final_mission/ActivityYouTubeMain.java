@@ -1,4 +1,4 @@
-package com.yjk.sample._1_finalmission;
+package com.yjk.sample._1_final_mission;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
-import com.yjk.sample._1_finalmission.adapter.VodAdapter;
-import com.yjk.sample._1_finalmission.datamodule.SearchData;
-import com.yjk.sample._1_finalmission.search.ActivitySearch;
+import com.yjk.sample._1_final_mission.adapter.VodAdapter;
+import com.yjk.sample._1_final_mission.collect_data.SearchData;
+import com.yjk.sample._1_final_mission.search.ActivitySearch;
 import com.yjk.sample.databinding.Activity1MainBinding;
 
 import org.json.JSONArray;
@@ -120,9 +120,6 @@ public class ActivityYouTubeMain extends YouTubeBaseActivity {
     }
 
     private void parsingJsonData(JSONObject jsonObject) throws JSONException {
-        //아이템 누적 방지
-        mList.clear();
-
         JSONArray contacts = jsonObject.getJSONArray("items");
 
         for (int i =0; i < contacts.length(); i++){

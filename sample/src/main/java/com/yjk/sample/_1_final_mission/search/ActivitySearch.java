@@ -1,4 +1,4 @@
-package com.yjk.sample._1_finalmission.search;
+package com.yjk.sample._1_final_mission.search;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,12 +15,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.room.Room;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
-import com.yjk.sample._1_finalmission.ActivityYouTubeMain;
-import com.yjk.sample._1_finalmission.adapter.SearchContentsAdapter;
-import com.yjk.sample._1_finalmission.adapter.VodAdapter;
-import com.yjk.sample._1_finalmission.datamodule.SearchData;
-import com.yjk.sample._1_finalmission.roomdb.ActivityDataBase;
-import com.yjk.sample._1_finalmission.roomdb.DataTable;
+import com.yjk.sample._1_final_mission.ActivityYouTubeMain;
+import com.yjk.sample._1_final_mission.adapter.SearchContentsAdapter;
+import com.yjk.sample._1_final_mission.adapter.VodAdapter;
+import com.yjk.sample._1_final_mission.collect_data.SearchData;
+import com.yjk.sample._1_final_mission.roomdb.ActivityDataBase;
+import com.yjk.sample._1_final_mission.roomdb.DataTable;
 import com.yjk.sample.databinding.Activity1SerchMainBinding;
 
 import org.json.JSONArray;
