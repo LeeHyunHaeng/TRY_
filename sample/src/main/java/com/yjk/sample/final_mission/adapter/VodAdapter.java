@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -144,7 +145,8 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
                     i.putExtra("title",mList.get(position).getTitle());
                     i.putExtra("uri", mList.get(position).getImageUrl());
                     i.putExtra("channelId",mList.get(position).getChannelId());
-                    binding.getRoot().getContext().startActivity(i);
+//                    binding.getRoot().getContext().startActivity(i);
+                    binding.getRoot().getContext().;
                 }
             });
 
@@ -154,7 +156,7 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
                 public boolean onLongClick(View view) {
                     DataTableVod data = new DataTableVod();
                     int position = getAbsoluteAdapterPosition();
-                    Intent i = new Intent(binding.getRoot().getContext(), ActivityMyList.class);
+                    Toast.makeText(binding.getRoot().getContext(), getAbsoluteAdapterPosition() +"번째 영상이 삭제되었습니다!", Toast.LENGTH_SHORT).show();
                     mCallback.onItemDelete(view, position);
 
                     dList.remove(position);

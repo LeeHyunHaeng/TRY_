@@ -17,15 +17,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="title"
-            android:paddingStart="5dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="5dp"
-            android:textSize="20dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,25 +26,37 @@
             <RelativeLayout
                 android:id="@+id/heart"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:visibility="visible">
+                android:layout_height="wrap_content">
 
                 <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:background="@android:color/transparent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/heart"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp"/>
+                    android:layout_marginBottom="6dp"
+                    android:background="@drawable/custom_ripple_effect"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/heart"/>
 
             </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:hint="title"
+                android:paddingStart="5dp"
+                android:paddingTop="3dp"
+                android:paddingBottom="5dp"
+                android:textSize="17dp"
+                android:layout_gravity="center"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/channel"
@@ -61,8 +64,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="channel name"
-                android:textSize="20dp"
+                android:textSize="16dp"
                 android:paddingStart="5dp"
+                android:layout_marginStart="30dp"
                 android:paddingBottom="5dp"/>
 
             <TextView
@@ -71,20 +75,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:hint="views"
-                android:textSize="20dp"
-                android:paddingStart="5dp"
-                android:paddingBottom="3dp"/>
-
-
-            </LinearLayout>
-
-
-
-
-
+                android:textSize="16dp"
+                android:layout_marginStart="250dp"
+                android:paddingBottom="5dp"/>
         </LinearLayout>
-
-
     </LinearLayout>
-
 </LinearLayout>
