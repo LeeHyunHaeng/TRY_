@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -27,9 +28,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ActivityYouTubeMain extends YouTubeBaseActivity {
-    private final String API_KEY = "AIzaSyAXV8MZt-Vn15KgIonqEzlx9KIs_AteSxs";
+    private final String API_KEY = "AIzaSyClFsSCuSD9HYyA7NLX0C8WSHCShNsQJYs";
 
     private Activity1MainBinding binding;
     private Context mContext;
@@ -52,15 +54,7 @@ public class ActivityYouTubeMain extends YouTubeBaseActivity {
 
         searchVod searchVod = new searchVod();
         searchVod.execute();
-
-        setEvent();
-
     }
-
-    //리스트 목록
-    public void setEvent() {
-
-        }
 
 
 
@@ -145,13 +139,27 @@ public class ActivityYouTubeMain extends YouTubeBaseActivity {
             String title = o.getJSONObject("snippet").getString("title");
             String changeT = stringToHtmlSign(title);
 
-            String channelId = o.getJSONObject("snippet").getString("channelId");
-
-//            long viewCount = o.getJSONObject("statistics").getLong("viewCount");
-//            Log.d(TAG, "parsingJsonData: viewCount = " + viewCount);
+            String channelId = o.getJSONObject("snippet").getString("channelTitle");
 
             String imageUrl = o.getJSONObject("snippet").getJSONObject("thumbnails")
                     .getJSONObject("high").getString("url");
+
+//            //조회수
+//
+//            String parentKey = jsonObject.getString("items");
+//            parentKey = parentKey.substring(1,parentKey.length() - 1);
+//            JSONObject parentKeyJson = new JSONObject(parentKey);
+//            String statistics = parentKeyJson.getString("statistics");
+//            JSONObject statisticsJson = new JSONObject(statistics);
+//            Iterator iterator = statisticsJson.keys();
+//
+//            while (iterator.hasNext()) {
+//                String key = iterator.next().toString();
+//                if (key.contains("viewCount")) {
+//                    viewCount = statisticsJson.getLong(key);
+//                    break;
+//                }
+//            }
 
 
             mList.add(new SearchData(vodId,changeT,imageUrl,channelId));

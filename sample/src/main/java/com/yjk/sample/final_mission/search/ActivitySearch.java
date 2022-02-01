@@ -33,12 +33,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class ActivitySearch extends YouTubeBaseActivity {
     private static final String TAG = "찾아!!";
-    private final String API_KEY = "AIzaSyAXV8MZt-Vn15KgIonqEzlx9KIs_AteSxs";
+    private final String API_KEY = "AIzaSyClFsSCuSD9HYyA7NLX0C8WSHCShNsQJYs";
 
     private Activity1SerchMainBinding binding;
     private ActivityDataBase db;
@@ -51,6 +53,7 @@ public class ActivitySearch extends YouTubeBaseActivity {
     private VodAdapter vAdapter;
     private SearchContentsAdapter cAdapter;
     private ArrayList<SearchData> mList;
+
 
 
 
@@ -177,6 +180,10 @@ public class ActivitySearch extends YouTubeBaseActivity {
 
         URL url = new URL(originUrl);
 
+        /**
+         * 안드로이드 어플리케이션이 서버와 통신하기 위한 방법에는 HTTP통신과 Socket 통신 2가지가 있다.
+         * 그 중 HTTP통신은 URL 접속을 통해 데이터를 읽어오는 방법이다.
+         */
         HttpURLConnection connection =(HttpURLConnection)url.openConnection();
         connection.setRequestMethod("GET");
         connection.setReadTimeout(10000);
@@ -222,18 +229,33 @@ public class ActivitySearch extends YouTubeBaseActivity {
             String title = o.getJSONObject("snippet").getString("title");
             String changeT = stringToHtmlSign(title);
 
-            String channelId = o.getJSONObject("snippet").getString("channelId");
-
-//            long viewCount = o.getJSONObject("statistics").getLong("viewCount");
-//            Log.d(TAG, "parsingJsonData: viewCount = " + viewCount);
+            String channelId = o.getJSONObject("snippet").getString("channelTitle");
 
             String imageUrl = o.getJSONObject("snippet").getJSONObject("thumbnails")
                     .getJSONObject("high").getString("url");
 
+//            //조회수
+//            String parentKey = jsonObject.getString("items");
+//            parentKey = parentKey.substring(1,parentKey.length() - 1);
+//            JSONObject parentKeyJson = new JSONObject(parentKey);
+//            String statistics = parentKeyJson.getString("statistics");
+//            JSONObject statisticsJson = new JSONObject(statistics);
+//            Iterator iterator = statisticsJson.keys();
+//
+//            while (iterator.hasNext()) {
+//                String key = iterator.next().toString();
+//                if (key.contains("viewCount")) {
+//                    viewCount = statisticsJson.getLong(key);
+//                    Log.d(TAG, "parsingJsonData: viewCount = " + viewCount);
+//                    break;
+//                }
+//            }
 
             mList.add(new SearchData(vodId,changeT,imageUrl,channelId));
             Log.d(TAG, "parsingJsonData: mList = " + mList);
             oldTitle ="";
+
+
         }
     }
 

@@ -23,12 +23,13 @@ import com.yjk.sample.final_mission.search.ActivitySearch;
 import java.util.List;
 
 public class ActivityMyList extends AppCompatActivity {
-    private static final String TAG = ActivityMyList.class.toString();
+    private static final String TAG = "HaengSu";
     private Activity1LikeListBinding binding;
     private String vodid,title,uri,channelid;
     private VodAdapter adapter;
     private ActivityDataBase db;
     private Intent intent;
+    private DataTableVod dataVod;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,20 +56,15 @@ public class ActivityMyList extends AppCompatActivity {
     }
 
     public void addVodProfile() {
-        DataTableVod data = new DataTableVod();
-        data.vodId = vodid;
-        data.title = title;
-        data.uri = uri;
-        data.channelId = channelid;
+        dataVod = new DataTableVod();
+        dataVod.vodId = vodid;
+        dataVod.title = title;
+        dataVod.uri = uri;
+        dataVod.channelId = channelid;
 
-        db.dataDao().insertVod(data);
+        db.dataDao().insertVod(dataVod);
 
         sendProfile();
-    }
-
-    public void deleteProfile(){
-
-
     }
 
 
@@ -81,7 +77,13 @@ public class ActivityMyList extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityMyList.this);
         binding.recyclerviewMain.setLayoutManager(linearLayoutManager);
 
-        adapter = new VodAdapter(dList,mData);
+        adapter = new VodAdapter(dList, mData, new VodAdapter.OnItemLongCallback() {
+            @Override
+            public void onItemDelete(View v, int position) {
+               dataVod = dList.get(position);
+               db.dataDao().deleteVod(dataVod);
+            }
+        });
         binding.recyclerviewMain.setAdapter(adapter);
     }
 

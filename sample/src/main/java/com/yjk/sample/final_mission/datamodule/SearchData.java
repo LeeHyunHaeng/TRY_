@@ -7,6 +7,7 @@ public class SearchData {
     String title;
     String imageUrl;
     String channelId;
+//    long viewCount;
     boolean isLike = false;
 
     public SearchData(String videoId, String title, String ImageUrl,String ChannelId) {
@@ -14,6 +15,7 @@ public class SearchData {
         this.title = title;
         this.imageUrl = ImageUrl;
         this.channelId = ChannelId;
+//        this.viewCount = viewCount;
     }
     public SearchData(){}
 
@@ -56,4 +58,12 @@ public class SearchData {
     public void setLike(boolean like) {
         isLike = like;
     }
+
+//    public long getViewCount() {
+//        return viewCount;
+//    }
+//
+//    public void setViewCount(long viewCount) {
+//        this.viewCount = viewCount;
+//    }
 }

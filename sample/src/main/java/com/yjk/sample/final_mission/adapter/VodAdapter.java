@@ -40,9 +40,10 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
         this.data = new SearchData();
     }
 
-    public VodAdapter(List<DataTableVod> dlist, SearchData sData){
+    public VodAdapter(List<DataTableVod> dlist, SearchData sData,OnItemLongCallback callback){
         this.dList = dlist;
         this.data = sData;
+        this.mCallback = callback;
     }
 
     public interface OnItemLongCallback {
@@ -83,10 +84,12 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
                     .load(imageUrl)
                     .into(holder.binding.titleImage);
 
-            holder.binding.channel.setText(mList.get(position).getVideoId());
+            holder.binding.channel.setText(mList.get(position).getChannelId());
 
             //ChannelId
-            holder.binding.views.setText(mList.get(position).getChannelId());
+
+            //viewCount
+//            holder.binding.views.setText((int) mList.get(position).getViewCount());
         }
 
     }
@@ -121,7 +124,6 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
                     } else{
                         i.putExtra("id", mList.get(position).getVideoId());
                         i.putExtra("title",mList.get(position).getTitle());
-
                     }
 
                     binding.getRoot().getContext().startActivity(i);
@@ -153,12 +155,8 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
                     DataTableVod data = new DataTableVod();
                     int position = getAbsoluteAdapterPosition();
                     Intent i = new Intent(binding.getRoot().getContext(), ActivityMyList.class);
+                    mCallback.onItemDelete(view, position);
 
-                    data.vodId = dList.get(position).vodId;
-
-                    db = Room.databaseBuilder(binding.getRoot().getContext(), ActivityDataBase.class,"deleteVod").allowMainThreadQueries().build();
-//                    db.dataDao().deleteVod(data);
-                    Log.d(TAG, "onLongClick: data = " + data.vodId);
                     dList.remove(position);
                     notifyDataSetChanged();
                     return true;
