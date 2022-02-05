@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
     android:layout_marginStart="5dp"
+    android:layout_marginTop="15dp"
     android:layout_marginEnd="5dp"
-    android:layout_marginTop="15dp">
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/titleImage"
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+        android:layout_height="200dp" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,31 +26,28 @@
             android:orientation="horizontal">
 
             <RelativeLayout
-                android:id="@+id/heart"
+                android:id="@+id/empty_heart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginBottom="6dp"
-                    android:background="@drawable/custom_ripple_effect"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/heart"/>
-
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="26dp"
+                android:layout_margin="5dp"
+                android:src="@drawable/use_heart"/>
             </RelativeLayout>
 
+
             <TextView
-                android:id="@+id/title"
+                android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
                 android:hint="title"
                 android:paddingStart="5dp"
                 android:paddingTop="3dp"
-                android:paddingBottom="5dp"
-                android:textSize="17dp"
-                android:layout_gravity="center"/>
+                android:textSize="17dp" />
 
 
         </LinearLayout>
@@ -59,25 +58,25 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/channel"
+                android:id="@+id/tv_channel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:hint="channel name"
-                android:textSize="16dp"
                 android:paddingStart="5dp"
-                android:layout_marginStart="30dp"
-                android:paddingBottom="5dp"/>
+                android:paddingBottom="5dp"
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/views"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="250dp"
                 android:layout_weight="1"
                 android:hint="views"
-                android:textSize="16dp"
-                android:layout_marginStart="250dp"
-                android:paddingBottom="5dp"/>
+                android:paddingBottom="5dp"
+                android:textSize="16dp" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

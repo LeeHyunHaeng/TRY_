@@ -1,22 +1,32 @@
 package com.yjk.sample.final_mission;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.transition.Explode;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
+import android.view.Window;
 
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
+import com.google.android.youtube.player.internal.v;
+import com.yjk.sample.R;
 import com.yjk.sample.final_mission.adapter.VodAdapter;
 import com.yjk.sample.final_mission.datamodule.SearchData;
 import com.yjk.sample.final_mission.heart_list.ActivityMyList;
+import com.yjk.sample.final_mission.player.ActivityPlayer;
 import com.yjk.sample.final_mission.search.ActivitySearch;
 import com.yjk.sample.databinding.Activity1MainBinding;
 
+import org.checkerframework.checker.units.qual.A;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,13 +60,26 @@ public class ActivityYouTubeMain extends YouTubeBaseActivity {
         binding = Activity1MainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        mContext = this;
         mList = new ArrayList<>();
 
         searchVod searchVod = new searchVod();
         searchVod.execute();
+
+        adapter = new VodAdapter(mContext,mList);
+        adapter.setItemClickListener(new VodAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, SearchData searchData) {
+                ArrayList<SearchData> sList = new ArrayList<>();
+                sList.add(searchData);
+
+                Intent i = new Intent(mContext,ActivityPlayer.class);
+                i.putExtra("data",sList);
+                startActivity(i);
+                overridePendingTransition(R.anim.vertical_enter,R.anim.none);
+            }
+        });
     }
-
-
 
 //===============================첫 화면 영상 검색=======================================
 
@@ -82,8 +105,6 @@ public class ActivityYouTubeMain extends YouTubeBaseActivity {
         protected void onPostExecute(Void unused) {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityYouTubeMain.this);
             binding.recyclerviewMain.setLayoutManager(linearLayoutManager);
-
-            adapter = new VodAdapter(mContext,mList);
             binding.recyclerviewMain.setAdapter(adapter);
             adapter.notifyDataSetChanged();
         }

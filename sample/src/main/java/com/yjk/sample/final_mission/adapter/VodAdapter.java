@@ -1,24 +1,30 @@
 package com.yjk.sample.final_mission.adapter;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.os.SystemClock;
 import android.util.Log;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 import com.bumptech.glide.Glide;
-import com.yjk.sample.final_mission.datamodule.SearchData;
-import com.yjk.sample.final_mission.heart_list.ActivityMyList;
-import com.yjk.sample.final_mission.player.ActivityPlayer;
 import com.yjk.sample.databinding.Activity1RecyclerviewItemBinding;
+import com.yjk.sample.final_mission.ActivityYouTubeMain;
+import com.yjk.sample.final_mission.datamodule.SearchData;
+import com.yjk.sample.final_mission.player.ActivityPlayer;
 import com.yjk.sample.final_mission.roomdb.ActivityDataBase;
-import com.yjk.sample.final_mission.roomdb.DataTable;
 import com.yjk.sample.final_mission.roomdb.DataTableVod;
 
 import java.lang.reflect.Array;
@@ -32,6 +38,7 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
     private List<DataTableVod> dList;
     private Context context;
     private OnItemLongCallback mCallback;
+    private OnItemClickListener clickListener;
     private SearchData data;
     private ActivityDataBase db;
 
@@ -51,6 +58,14 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
         void onItemDelete(View v, int position);
     }
 
+    public interface OnItemClickListener{
+        void onItemClick(View v, SearchData searchData);
+    }
+
+    public void setItemClickListener(OnItemClickListener onItemClickListener){
+        this.clickListener = onItemClickListener;
+    }
+
     @NonNull
     @Override
     public mViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -64,20 +79,19 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
 
         //좋아요 영상 띄우기
         if (data.isLike()) {
-            holder.binding.title.setText(dList.get(position).title);
+            holder.binding.tvTitle .setText(dList.get(position).title);
 
             String likeUrl = dList.get(position).uri;
             Glide.with(holder.binding.titleImage)
                     .load(likeUrl)
                     .into(holder.binding.titleImage);
 
-            holder.binding.channel.setText(dList.get(position).channelId);
-            holder.binding.heart.setVisibility(View.GONE);
+            holder.binding.tvChannel.setText(dList.get(position).channelId);
 
         } else {
 
             //영상제목 셋팅
-            holder.binding.title.setText(mList.get(position).getTitle());
+            holder.binding.tvTitle.setText(mList.get(position).getTitle());
 
             //이미지를 넣어주기 위해 이미지url을 가져와서 썸에일 적용.
             String imageUrl = mList.get(position).getImageUrl();
@@ -85,13 +99,10 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
                     .load(imageUrl)
                     .into(holder.binding.titleImage);
 
-            holder.binding.channel.setText(mList.get(position).getChannelId());
-
-            //ChannelId
-
-            //viewCount
-//            holder.binding.views.setText((int) mList.get(position).getViewCount());
+            holder.binding.tvChannel.setText(mList.get(position).getChannelId());
         }
+
+        holder.bind(mList.get(position),clickListener);
 
     }
 
@@ -107,46 +118,17 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
 
     public class mViewHolder extends RecyclerView.ViewHolder{
         private Activity1RecyclerviewItemBinding binding;
+        private long mLastClickTime = 0;
 
         public mViewHolder(@NonNull Activity1RecyclerviewItemBinding b) {
             super(b.getRoot());
             this.binding = b;
 
-            //유튜브 영상을 클릭하면 재생이 되는 액티비티로 이동
-            binding.getRoot().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAbsoluteAdapterPosition();
-                    Intent i = new Intent(binding.getRoot().getContext(), ActivityPlayer.class);
-
-                    if (mList == null){
-                        i.putExtra("id",dList.get(position).vodId);
-                        i.putExtra("title",dList.get(position).title);
-                    } else{
-                        i.putExtra("id", mList.get(position).getVideoId());
-                        i.putExtra("title",mList.get(position).getTitle());
-                    }
-
-                    binding.getRoot().getContext().startActivity(i);
-
-                }
-            });
-
-            //영상 좋아요 누를때 데이터 전달
-            binding.heart.setOnClickListener(new View.OnClickListener() {
+            //좋아요 클릭시 데이터 보냄
+            binding.emptyHeart.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    data.setLike(!data.isLike());
-                    Log.d(TAG, "onClick: data.isLike = " + data.isLike());
-                    int position = getAbsoluteAdapterPosition();
-                    Intent i = new Intent(binding.getRoot().getContext(), ActivityMyList.class);
-                    i.putExtra("id", mList.get(position).getVideoId());
-                    i.putExtra("title",mList.get(position).getTitle());
-                    i.putExtra("uri", mList.get(position).getImageUrl());
-                    i.putExtra("channelId",mList.get(position).getChannelId());
-//                    binding.getRoot().getContext().startActivity(i);
-                    binding.getRoot().getContext().;
+                    binding.emptyHeart.setSelected(!binding.emptyHeart.isSelected());
                 }
             });
 
@@ -164,7 +146,22 @@ public class VodAdapter extends RecyclerView.Adapter<VodAdapter.mViewHolder> {
                     return true;
                 }
             });
+        }
 
+        public void bind(SearchData data, OnItemClickListener callback) {
+
+            binding.getRoot().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (SystemClock.elapsedRealtime() - mLastClickTime >= 1000){
+                        int position = getAbsoluteAdapterPosition();
+                        if (position != RecyclerView.NO_POSITION){
+                            callback.onItemClick(binding.getRoot(),data);
+                        }
+                    }
+                    mLastClickTime = SystemClock.elapsedRealtime();
+                }
+            });
         }
     }
 }
