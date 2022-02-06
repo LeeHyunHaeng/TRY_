@@ -10,5 +10,6 @@ public class DataTableVod {
 
     //좋아요 영상 저장
     public String vodId,title,uri,channelId;
+    public boolean like;
 
 }

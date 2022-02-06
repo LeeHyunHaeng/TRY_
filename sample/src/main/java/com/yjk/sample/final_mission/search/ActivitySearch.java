@@ -40,7 +40,7 @@ import java.util.List;
 
 public class ActivitySearch extends YouTubeBaseActivity {
     private static final String TAG = "찾아!!";
-    private final String API_KEY = "AIzaSyClFsSCuSD9HYyA7NLX0C8WSHCShNsQJYs";
+    private final String API_KEY = "AIzaSyAXV8MZt-Vn15KgIonqEzlx9KIs_AteSxs";
 
     private Activity1SerchMainBinding binding;
     private ActivityDataBase db;

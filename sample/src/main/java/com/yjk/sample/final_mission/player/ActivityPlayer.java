@@ -39,7 +39,6 @@ public class ActivityPlayer  extends AppCompatActivity {
 
         getData();
         startPlayer();
-
     }
 
     private void getData() {

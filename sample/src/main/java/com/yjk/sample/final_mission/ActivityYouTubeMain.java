@@ -1,5 +1,6 @@
 package com.yjk.sample.final_mission;
 
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +24,10 @@ import com.yjk.sample.final_mission.adapter.VodAdapter;
 import com.yjk.sample.final_mission.datamodule.SearchData;
 import com.yjk.sample.final_mission.heart_list.ActivityMyList;
 import com.yjk.sample.final_mission.player.ActivityPlayer;
+import com.yjk.sample.final_mission.roomdb.ActivityDataBase;
+import com.yjk.sample.final_mission.roomdb.DataDao;
+import com.yjk.sample.final_mission.roomdb.DataTable;
+import com.yjk.sample.final_mission.roomdb.DataTableVod;
 import com.yjk.sample.final_mission.search.ActivitySearch;
 import com.yjk.sample.databinding.Activity1MainBinding;
 
@@ -39,9 +44,11 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class ActivityYouTubeMain extends YouTubeBaseActivity {
-    private final String API_KEY = "AIzaSyClFsSCuSD9HYyA7NLX0C8WSHCShNsQJYs";
+    private static final String TAG = "HAENG";
+    private final String API_KEY = "AIzaSyAXV8MZt-Vn15KgIonqEzlx9KIs_AteSxs";
 
     private Activity1MainBinding binding;
     private Context mContext;
@@ -52,6 +59,7 @@ public class ActivityYouTubeMain extends YouTubeBaseActivity {
 
     private ArrayList<SearchData> mList;
     private VodAdapter adapter;
+    private List<DataTableVod> dList;
 
 
     @Override
@@ -62,28 +70,68 @@ public class ActivityYouTubeMain extends YouTubeBaseActivity {
 
         mContext = this;
         mList = new ArrayList<>();
+        ActivityDataBase db = ActivityDataBase.getAppDatabase(ActivityYouTubeMain.this);
 
         searchVod searchVod = new searchVod();
         searchVod.execute();
 
-        adapter = new VodAdapter(mContext,mList);
+        adapter = new VodAdapter(mContext, mList);
+
         adapter.setItemClickListener(new VodAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View v, SearchData searchData) {
-                ArrayList<SearchData> sList = new ArrayList<>();
-                sList.add(searchData);
+            public void onItemClick(View v, SearchData data, int n) {
 
-                Intent i = new Intent(mContext,ActivityPlayer.class);
-                i.putExtra("data",sList);
-                startActivity(i);
-                overridePendingTransition(R.anim.vertical_enter,R.anim.none);
+                switch (n) {
+                    case 1:
+                        ArrayList<SearchData> sList = new ArrayList<>();
+                        sList.add(data);
+
+                        Intent i = new Intent(mContext, ActivityPlayer.class);
+                        i.putExtra("data", sList);
+                        startActivity(i);
+                        overridePendingTransition(R.anim.vertical_enter, R.anim.none);
+                        break;
+
+                    case 2:
+                        DataTableVod table = new DataTableVod();
+                        table.vodId = data.getVideoId();
+                        table.title = data.getTitle();
+                        table.uri = data.getImageUrl();
+                        table.channelId = data.getChannelId();
+                        table.like = data.isLike();
+                        Log.d(TAG, "onItemClick: like =" + data.isLike());
+                        Log.d(TAG, "onItemClick: table.like = " + table.like);
+                        Log.d(TAG, "onItemClick: title = " + data.getTitle());
+
+                        new saveVod(db.dataDao()).execute(table);
+                        break;
+                }
             }
         });
     }
+//=================================아이탬 저장 비동기 ===========================================
 
-//===============================첫 화면 영상 검색=======================================
+    private class saveVod extends AsyncTask<DataTableVod, Void, Void> {
+        private DataDao dao;
 
-    private class searchVod extends AsyncTask<Void,Void,Void> {
+        public saveVod(DataDao dataDao) {
+            this.dao = dataDao;
+
+        }
+
+        @Override
+        protected Void doInBackground(DataTableVod... dataTableVods) {
+            dao.insertVod(dataTableVods[0]);
+
+            dList = dao.getVodAll();
+
+            return null;
+        }
+    }
+
+//===============================첫 화면 영상 검색 비동기 =======================================
+
+    private class searchVod extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -114,26 +162,26 @@ public class ActivityYouTubeMain extends YouTubeBaseActivity {
 
         originUrl = "https://www.googleapis.com/youtube/v3/search?"
                 + "part=snippet&q= 팝송"
-                + "&key="+ API_KEY+"&maxResults=" + 50;
+                + "&key=" + API_KEY + "&maxResults=" + 50;
 
         URL url = new URL(originUrl);
 
-        HttpURLConnection connection =(HttpURLConnection)url.openConnection();
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         connection.setReadTimeout(10000);
         connection.setConnectTimeout(15000);
         connection.connect();
 
         String line;
-        String result="";
-        InputStream inputStream=connection.getInputStream();
+        String result = "";
+        InputStream inputStream = connection.getInputStream();
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         StringBuffer response = new StringBuffer();
 
-        while ((line = reader.readLine())!=null){
+        while ((line = reader.readLine()) != null) {
             response.append(line);
         }
-        result=response.toString();
+        result = response.toString();
 
         JSONObject jsonObject = new JSONObject();
         try {
@@ -148,13 +196,13 @@ public class ActivityYouTubeMain extends YouTubeBaseActivity {
     private void parsingJsonData(JSONObject jsonObject) throws JSONException {
         JSONArray contacts = jsonObject.getJSONArray("items");
 
-        for (int i =0; i < contacts.length(); i++){
+        for (int i = 0; i < contacts.length(); i++) {
             JSONObject o = contacts.getJSONObject(i);
             String kind = o.getJSONObject("id").getString("kind");
 
-            if(kind.equals("youtube#video")){
+            if (kind.equals("youtube#video")) {
                 vodId = o.getJSONObject("id").getString("videoId");
-            }else {
+            } else {
                 vodId = o.getJSONObject("id").getString("playlistId");
             }
             String title = o.getJSONObject("snippet").getString("title");
@@ -183,16 +231,16 @@ public class ActivityYouTubeMain extends YouTubeBaseActivity {
 //            }
 
 
-            mList.add(new SearchData(vodId,changeT,imageUrl,channelId));
+            mList.add(new SearchData(vodId, changeT, imageUrl, channelId));
         }
     }
 
     private String stringToHtmlSign(String str) {
         return str.replaceAll("&amp;", "&")
-                .replaceAll("[<]","&lt;")
-                .replaceAll("[>]","&gt;")
-                .replaceAll("&quot;","'")
-                .replaceAll("&#39;","'");
+                .replaceAll("[<]", "&lt;")
+                .replaceAll("[>]", "&gt;")
+                .replaceAll("&quot;", "'")
+                .replaceAll("&#39;", "'");
     }
 
     public void moveSearch(View view) {
@@ -200,6 +248,7 @@ public class ActivityYouTubeMain extends YouTubeBaseActivity {
         startActivity(intent);
         finish();
     }
+
     public void moveList(View view) {
         Intent intent = new Intent(this, ActivityMyList.class);
         startActivity(intent);
