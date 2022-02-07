@@ -46,8 +46,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+
+/**
+ * 메인 화면으로 http통신을 사용하여 '팝송'이라는 주제의 영상정보를 가져와
+ * 어댑터를 통해 화면에 띄웁니다.
+ *
+ */
+
 public class ActivityYouTubeMain extends YouTubeBaseActivity {
-    private static final String TAG = "HAENG";
+    private static final String TAG = ActivityYouTubeMain.class.toString();
     private final String API_KEY = "AIzaSyAXV8MZt-Vn15KgIonqEzlx9KIs_AteSxs";
 
     private Activity1MainBinding binding;
@@ -72,14 +79,13 @@ public class ActivityYouTubeMain extends YouTubeBaseActivity {
         mList = new ArrayList<>();
         ActivityDataBase db = ActivityDataBase.getAppDatabase(ActivityYouTubeMain.this);
 
-        searchVod searchVod = new searchVod();
+        SearchVod searchVod = new SearchVod();
         searchVod.execute();
 
         adapter = new VodAdapter(mContext, mList);
-
         adapter.setItemClickListener(new VodAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(View v, SearchData data, int n) {
+            public void onItemClick(View v, SearchData data,int n) {
 
                 switch (n) {
                     case 1:
@@ -99,39 +105,35 @@ public class ActivityYouTubeMain extends YouTubeBaseActivity {
                         table.uri = data.getImageUrl();
                         table.channelId = data.getChannelId();
                         table.like = data.isLike();
-                        Log.d(TAG, "onItemClick: like =" + data.isLike());
-                        Log.d(TAG, "onItemClick: table.like = " + table.like);
-                        Log.d(TAG, "onItemClick: title = " + data.getTitle());
-
-                        new saveVod(db.dataDao()).execute(table);
+                        new SaveVod(db.dataDao()).execute(table);
                         break;
                 }
+            }
+            @Override
+            public void onItemDelete(View v, DataTableVod dataTableVod) {
             }
         });
     }
 //=================================아이탬 저장 비동기 ===========================================
 
-    private class saveVod extends AsyncTask<DataTableVod, Void, Void> {
+    private class SaveVod extends AsyncTask<DataTableVod, Void, Void> {
         private DataDao dao;
 
-        public saveVod(DataDao dataDao) {
+        public SaveVod(DataDao dataDao) {
             this.dao = dataDao;
-
         }
 
         @Override
         protected Void doInBackground(DataTableVod... dataTableVods) {
             dao.insertVod(dataTableVods[0]);
-
             dList = dao.getVodAll();
-
             return null;
         }
     }
 
 //===============================첫 화면 영상 검색 비동기 =======================================
 
-    private class searchVod extends AsyncTask<Void, Void, Void> {
+    private class SearchVod extends AsyncTask<Void, Void, Void> {
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
@@ -229,8 +231,6 @@ public class ActivityYouTubeMain extends YouTubeBaseActivity {
 //                    break;
 //                }
 //            }
-
-
             mList.add(new SearchData(vodId, changeT, imageUrl, channelId));
         }
     }

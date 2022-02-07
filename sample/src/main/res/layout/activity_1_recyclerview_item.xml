@@ -28,9 +28,11 @@
             <RelativeLayout
                 android:id="@+id/heart"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="visible">
 
                 <ImageView
+                    android:id="@+id/use_heart"
                     android:layout_width="28dp"
                     android:layout_height="26dp"
                     android:layout_marginStart="5dp"
@@ -65,10 +67,9 @@
                 android:id="@+id/tv_channel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="44dp"
                 android:layout_weight="1"
                 android:hint="channel name"
-                android:paddingStart="5dp"
                 android:paddingBottom="5dp"
                 android:textSize="16dp" />
 

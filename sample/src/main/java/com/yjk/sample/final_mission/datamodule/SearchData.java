@@ -9,7 +9,7 @@ public class SearchData implements Serializable {
     String title;
     String imageUrl;
     String channelId;
-//    long viewCount;
+    String searchHistory;
     boolean isLike = false;
 
     public SearchData(String videoId, String title, String ImageUrl,String ChannelId) {
@@ -17,7 +17,6 @@ public class SearchData implements Serializable {
         this.title = title;
         this.imageUrl = ImageUrl;
         this.channelId = ChannelId;
-//        this.viewCount = viewCount;
     }
     public SearchData(){}
 
@@ -61,11 +60,11 @@ public class SearchData implements Serializable {
         isLike = like;
     }
 
-//    public long getViewCount() {
-//        return viewCount;
-//    }
-//
-//    public void setViewCount(long viewCount) {
-//        this.viewCount = viewCount;
-//    }
+    public String getSearchHistory() {
+        return searchHistory;
+    }
+
+    public void setSearchHistory(String searchHistory) {
+        this.searchHistory = searchHistory;
+    }
 }
